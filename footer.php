@@ -1,6 +1,9 @@
-<footer>
-  
-</footer>
+  <footer class="main-footer">
+    <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="http://leadclickz.com">Lead Clickz</a>.</strong> All rights reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
