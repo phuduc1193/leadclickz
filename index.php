@@ -1,10 +1,8 @@
-<?php $home_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
+<?php require_once('header.php');?>
 
-<?php include 'header.php';?>
+<?php require_once('navbar.php');?>
 
-<?php include 'navbar.php';?>
-
-<?php include 'sidebar.php';?>
+<?php require_once('sidebar.php');?>
   
 
   <!-- Content Wrapper. Contains page content -->
@@ -523,4 +521,4 @@
 
 
 
-<?php include 'footer.php';?>
+<?php require_once('footer.php');?>
