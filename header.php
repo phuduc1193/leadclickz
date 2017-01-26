@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="assets/css/admin.min.css">
   <link rel="stylesheet" href="assets/css/admin-theme.min.css">
   <link rel="stylesheet" href="assets/css/plugins.min.css">
-
+  <link rel="stylesheet" href="assets/css/custom.css">
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>

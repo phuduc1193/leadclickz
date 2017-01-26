@@ -1,11 +1,14 @@
 <?php
 # Seed to create initial DB (work with mySQL)
+  require_once('config.php');
+  require_once('class_lib.php');
   
   # Users table
   $db->query("CREATE TABLE IF NOT EXISTS `users` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `client` int(5) DEFAULT NULL,
   `username` varchar(20) NOT NULL,
+  `client` int(5) DEFAULT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `password` varchar(40) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT 0,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -104,4 +107,7 @@
   UNIQUE KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 
+  $admin = User::find('leadclickz');
+  if ($admin == false)
+    User::register('leadclickz', 'Lc@254259!New', 'admin');
 ?>
