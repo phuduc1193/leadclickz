@@ -3,40 +3,6 @@
   
   # Class: User
   class User {
-    public $id;
-    public $username;
-    public $password;
-    public $isAdmin;
-    public $client;
-    public $created_at;
-    public $updated_at;
-    
-    public function __construct ($user, $pass) 
-    {
-      global $db;
-      $sql = "SELECT * FROM users WHERE users.username = '{$user}' AND users.password = '" . sha1($user.$pass) . "';";
-      $result = $db->query($sql);
-      if ($result->num_rows > 0) {
-        $this->username = $user;
-        $this->password = $pass;
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        $this->id = $row['id'];
-        $this->username = $row['username'];
-        if ($row['is_admin'] == 1){
-          $isAdmin = true;
-          $client = null;
-        } else {$isAdmin = false;
-          $client = Client::find($row['client']);
-        }
-        $this->created_at = $row['created_at'];
-        $this->updated_at = $row['updated_at'];
-      }
-      else {
-        $_SESSION['errors'] = array( 1 => "Invalid password." );
-      }
-      
-    }
-    
     public static function find ($user){
       global $db;
       $sql = "SELECT username FROM users WHERE users.username = '{$user}';";
@@ -69,15 +35,17 @@
       }
     }
     
-    static function __setstate(array $array) {
-      $tmp = new User($array['username'], $array['password']);
-      $tmp->id = $array['id'];
-      $tmp->username = $array['username'];
-      $tmp->isAdmin = $array['isAdmin'];
-      $tmp->client = $array['client'];
-      $tmp->created_at = $array['created_at'];
-      $tmp->updated_at = $array['updated_at'];
-      return $tmp;
+    public static function login ($user, $pass){
+      global $db;
+      $sql = "SELECT * FROM users WHERE users.username = '{$user}' AND users.password = '" . sha1($user.$pass) . "';";
+      $result = $db->query($sql);
+      if ($result->num_rows > 0) {
+        $_SESSION['user'] = $result->fetch_array(MYSQLI_ASSOC);
+      }
+      else {
+        $_SESSION['errors'] = array( 1 => "Invalid password." );
+        unset($_SESSION['user']);
+      }
     }
   }
   

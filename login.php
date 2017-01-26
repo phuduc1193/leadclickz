@@ -6,12 +6,8 @@
   
   if ($user != false){
     unset($_SESSION['errors']);
-    $login_user = new User($_GET["username"], $_GET["password"]);
-    $_SESSION['user'] = (array)$login_user;
-    if (isset($_SESSION['errors'])){
-      unset($_SESSION['user']);
-      header('Location: ' . $home_url);
-    } else header('Location: ' . $home_url);
+    User::login($_GET["username"], $_GET["password"]);
+    header('Location: ' . $home_url);
   } else {
     $_SESSION['errors'] = array( 1 => "Invalid Username." );
     header('Location: ' . $home_url);
