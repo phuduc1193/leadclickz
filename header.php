@@ -1,5 +1,5 @@
 <?php
-  require_once('config.php');
+  require_once('class_lib.php');
 ?>
 
 <!DOCTYPE html>
@@ -31,3 +31,8 @@
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
   <div class="wrapper">
+    
+<?php
+  if ($_SERVER[REQUEST_URI] == '/header.php')
+    header('Location: ' . $home_url);
+?>

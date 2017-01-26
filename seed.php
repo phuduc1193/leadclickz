@@ -109,5 +109,11 @@
 
   $admin = User::find('leadclickz');
   if ($admin == false)
-    User::register('leadclickz', 'Lc@254259!New', 'admin');
+    User::register_admin('leadclickz', 'Lc@254259!New', 'admin');
+?>
+
+<?php
+  if ($_SERVER[REQUEST_URI] == '/seed.php'){
+    header('Location: ' . $home_url);
+  }
 ?>

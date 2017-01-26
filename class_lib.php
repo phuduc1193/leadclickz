@@ -3,9 +3,9 @@
   
   # Class: User
   class User {
-    public static function find ($user){
+    public static function find_all (){
       global $db;
-      $sql = "SELECT username FROM users WHERE users.username = '{$user}';";
+      $sql = "SELECT * FROM users;";
       $result = $db->query($sql);
       if ($result->num_rows > 0) {
         return $result;
@@ -13,17 +13,45 @@
       return false;
     }
     
-    public static function register ($user, $pass, $admin) {
+    public static function find ($user){
+      global $db;
+      $sql = "SELECT * FROM users WHERE users.username = '{$user}';";
+      $result = $db->query($sql);
+      if ($result->num_rows > 0) {
+        return $result;
+      }
+      return false;
+    }
+    
+    public static function register ($user, $pass) {
       global $db;
       if (User::find($user)){
         $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
         header('Location: ' . $home_url . 'user.php');
       }
       else {
-        $hashedpassword = sha1($user.$pass);
+        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', false, NOW(), NOW());";
+        $result = $db->query($sql);
+        if ($result->num_rows > 0) {
+          $_SESSION['success'] = array( 1 => "The registration is successful." );
+          header('Location: ' . $home_url . 'user.php');
+        } else {
+          $_SESSION['errors'] = array( 1 => "The registration is unsuccesful. Please contact the administrator for assistance." );
+          header('Location: ' . $home_url . 'user.php');
+        }
+      }
+    }
+    
+    public static function register_admin ($user, $pass, $admin) {
+      global $db;
+      if (User::find($user)){
+        $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
+        header('Location: ' . $home_url . 'user.php');
+      }
+      else {
         if ($admin == 'admin'){ $is_admin = true;}
         else {$is_admin = false;}
-        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$hashedpassword}', {$is_admin}, 'NULL', 'NULL');";
+        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', {$is_admin}, NOW(), NOW());";
         $result = $db->query($sql);
         if ($result->num_rows > 0) {
           $_SESSION['success'] = array( 1 => "The registration is successful." );
@@ -37,7 +65,7 @@
     
     public static function login ($user, $pass){
       global $db;
-      $sql = "SELECT * FROM users WHERE users.username = '{$user}' AND users.password = '" . sha1($user.$pass) . "';";
+      $sql = "SELECT * FROM users WHERE users.username = '{$user}' AND users.password = '{$pass}';";
       $result = $db->query($sql);
       if ($result->num_rows > 0) {
         $_SESSION['user'] = $result->fetch_array(MYSQLI_ASSOC);
@@ -47,22 +75,17 @@
         unset($_SESSION['user']);
       }
     }
+    
+    public static function set_client ($is_admin, $user_id, $client_id){
+      global $db;
+      if ($is_admin == true){
+        $db->query("UPDATE users SET users.client = '{$client_id}', users.updated_at = NOW() WHERE users.id = {$user_id};");
+      }
+    }
   }
   
   # Class: Client
   class Client {
-    public $id;
-    public $name;
-    public $logo;
-    public $street;
-    public $city;
-    public $state;
-    public $zipcode;
-    public $address;
-    public $phone;
-    public $email;
-    public $isActive;
-    
     public function __construct ($id) 
     {
       global $db;
@@ -101,4 +124,9 @@
       } else echo "Failed Query: " . $db->error;
     }
   }
+?>
+
+<?php
+  if ($_SERVER[REQUEST_URI] == '/class_lib.php')
+    header('Location: ' . $home_url);
 ?>
