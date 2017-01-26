@@ -1,13 +1,15 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="index2.html" class="logo">
+  <a href="<?php echo $home_url;?>" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>L</b>C</span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>Lead</b>Clickz</span>
   </a>
+
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
+<?php if (isset($_SESSION['user'])) { ?>
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
       <span class="sr-only">Toggle navigation</span>
@@ -245,12 +247,13 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+      <?php } #endif for login?>
   </nav>
 </header>

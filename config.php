@@ -15,5 +15,5 @@
     die("Connection failed. Please check your connection again or report to the administrator.");
   }
   
-  require_once('seed.php');
+  $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
 ?>
