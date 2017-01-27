@@ -39,23 +39,20 @@
     public static function register ($user, $pass) {
       global $db;
       if (User::find($user)){
-        unset($_SESSION['success']);
         $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
       }
       else {
-        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', false, NOW(), NOW());";
+        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', '0', NOW(), NOW());";
         $result = $db->query($sql);
-        if ($result->num_rows > 0) {
-          unset($_SESSION['errors']);
+        if ($result->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "The registration is successful." );
         } else {
-          unset($_SESSION['success']);
           $_SESSION['errors'] = array( 1 => "The registration is unsuccesful. Please contact the administrator for assistance." );
         }
       }
     }
     
-    public static function register_admin ($user, $pass, $admin) {
+    public static function register_admin ($user, $pass) {
       global $db;
       if (User::find($user)){
         $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
@@ -63,13 +60,11 @@
       else {
         if ($admin == 'admin'){ $is_admin = true;}
         else {$is_admin = false;}
-        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', {$is_admin}, NOW(), NOW());";
+        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', '1', NOW(), NOW());";
         $result = $db->query($sql);
-        if ($result->num_rows > 0) {
-          unset($_SESSION['errors']);
+        if ($result->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "The registration is successful." );
         } else {
-          unset($_SESSION['success']);
           $_SESSION['errors'] = array( 1 => "The registration is unsuccesful. Please contact the administrator for assistance." );
         }
       }
@@ -92,15 +87,14 @@
     public static function edit_user ($id, $user, $pass, $is_admin, $client){
       global $db;
       if ($_SESSION['user']['is_admin'] == true){
-        $db->query("UPDATE users SET users.username = '{$user}', users.password = '{$pass}', users.is_admin = '{$is_admin}', users.client = '{$client}', users.updated_at = NOW() WHERE users.id = {$id};");
+        if ($client == '')
+          $client = 'NULL';
+        $sql = "UPDATE users SET users.username = '{$user}', users.password = '{$pass}', users.is_admin = '{$is_admin}', users.client = '{$client}', users.updated_at = NOW() WHERE users.id = {$id};";
         $result = $db->query($sql);
-        if ($result->num_rows > 0) {
-          unset($_SESSION['errors']);
+        if ($db->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "The User has been edited." );
         } else {
-          unset($_SESSION['success']);
           $_SESSION['errors'] = array( 1 => "Editing User process is jammed. Please contact the administrator for assistance." );
-          header('Location: ' . $home_url . 'user.php');
         }
       }
     }
@@ -129,7 +123,7 @@
       global $db;
       $sql = "INSERT INTO clients (name, logo, street, city, state, zip_code, phone, email, created_at, updated_at) VALUES ('{$name}', '{$logo}', '{$street}', '{$city}', '{$state}', '{$zip}', '{$phone}', '{$email}', 'NULL', 'NULL');";
       $result = $db->query($sql);
-      if ($result->num_rows > 0) {
+      if ($result->affected_rows > 0) {
         echo "The registration is successful.";
       } else echo "Failed Query: " . $db->error;
     }

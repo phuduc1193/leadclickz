@@ -17,19 +17,30 @@
         "info": true,
         "lengthChange" : false
       });
-      
-      $('#editUser').on('show.bs.modal', function (e) {
-        var user_id = $(e.relatedTarget).data('id');
+    });
+    
+    $(document).on('show.bs.modal','#editUserModal', function (e) {
+      var user_id = $(e.relatedTarget).data('id');
         $.ajax({
           type : 'post',
           url : 'api.php', //Here you will fetch records 
-          data :  'process=setClient&user_id='+ user_id, //Pass $id
+          data :  'process=editUser&user_id='+ user_id, //Pass $id
           success : function(data){
             $('.fetched-data').html(data);//Show fetched data from database
           }
         });
+    })
+    
+    $(document).on('show.bs.modal','#createUserModal', function (e) {
+      $.ajax({
+        type : 'post',
+        url : 'api.php', //Here you will fetch records 
+        data :  'process=createUser', //Pass $id
+        success : function(data){
+          $('.fetched-data').html(data);//Show fetched data from database
+        }
       });
-    });
+    })
   </script>
   <!-- AdminLTE App -->
   <script src="assets/js/app.min.js"></script>

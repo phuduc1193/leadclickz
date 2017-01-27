@@ -60,13 +60,18 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
               echo '<td>' . $row['client'] . '</td>';
               echo '<td>' . $row['created_at'] . '</td>';
               echo '<td>' . $row['updated_at'] . '</td>';
-              echo '<td><a role="button" data-toggle="modal" data-target="#editUser" title="Click to edit" data-id="'. $row['id'] .'">Click Here</a></td>';
+              echo '<td><a role="button" data-toggle="modal" data-target="#editUserModal" title="Click to edit" data-id="'. $row['id'] .'">Click Here</a></td>';
             echo '</tr>';
   } ?>
             </tbody>
           </table>
         </div>
         <!-- /.box-body -->
+        <div class="box-footer">
+          <div class="col-md-9 col-md-offset-3">
+            <button id="btnAddUser" class="btn btn-primary">Create new User</button>
+          </div>
+        </div>
       </div>
       <!-- /.box -->
 
@@ -517,18 +522,14 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
 <!-- /.content -->
 
 <!-- Modal -->
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="setClientTitle" aria-hidden="true">
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="setClientTitle">Set Client for User</h4>
+        <h4 class="modal-title" id="editModalTitle">Edit User</h4>
       </div>
       <div class="modal-body">
         <div class="fetched-data"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="editUserForm">Save changes</button>
       </div>
     </div>
   </div>
