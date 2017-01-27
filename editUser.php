@@ -4,6 +4,9 @@
     if(isset($_POST['id'])){
       User::edit_user($_POST['id'], $_POST['username'], $_POST['password'], $_POST['is_admin'], $_POST['client']);
     }
+    if($_POST['process'] == 'newUser'){
+      User::add_user();
+    }
   }
 ?>
 

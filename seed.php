@@ -6,10 +6,10 @@
   # Users table
   $db->query("CREATE TABLE IF NOT EXISTS `users` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
+  `username` varchar(20) DEFAULT '',
   `client` int(5) DEFAULT NULL,
-  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
-  `password` varchar(40) NOT NULL,
+  `is_admin` tinyint(1) DEFAULT 0,
+  `password` varchar(40) DEFAULT '',
   `created_at` TIMESTAMP NOT NULL DEFAULT 0,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -109,8 +109,10 @@
 
   $admin = User::find('leadclickz');
   if ($admin == false)
-    User::register_admin('leadclickz', 'Lc@254259!New', 'admin');
+    $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('leadclickz', 'Lc@254259!New', '0', NOW(), NOW());");
 ?>
 
-
-
+<?php
+  if ($_SERVER[REQUEST_URI] == '/seed.php')
+    header('Location: ' . $home_url);
+?>

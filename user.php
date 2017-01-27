@@ -17,11 +17,18 @@
 <section class="content">
   <?php if (isset($_SESSION['errors'])){
           echo '<div class="clearfix"></div><div class="col-md-10 col-md-offset-2">';
-        foreach ($_SESSION['errors'] as $err_key => $err_message)
-          echo '<p class="text-red pull-left">' . $err_message . '</p>';
+        foreach ($_SESSION['errors'] as $key => $message)
+          echo '<p class="text-red pull-left">' . $message . '</p>';
         echo '</div>';
         } # End Errors
         unset($_SESSION['errors']); ?>
+  <?php if (isset($_SESSION['success'])){
+          echo '<div class="clearfix"></div><div class="col-md-10 col-md-offset-2">';
+        foreach ($_SESSION['success'] as $key => $message)
+          echo '<p class="text-primary pull-left">' . $message . '</p>';
+        echo '</div>';
+        } # End Errors
+        unset($_SESSION['success']); ?>
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
@@ -69,7 +76,7 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
         <!-- /.box-body -->
         <div class="box-footer">
           <div class="col-md-9 col-md-offset-3">
-            <button id="btnAddUser" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">Create new User</button>
+            <button id="btnAddUser" class="btn btn-primary" onclick="addEmptyUser();">Add new User</button>
           </div>
         </div>
       </div>
@@ -521,26 +528,12 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
 </section>
 <!-- /.content -->
 
-<!-- Modal -->
+<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="editModalTitle">Edit User</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="createModalTitle">Edit User</h4>
       </div>
       <div class="modal-body">
         <div class="fetched-data"></div>
