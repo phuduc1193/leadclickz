@@ -89,7 +89,7 @@
       if ($_SESSION['user']['is_admin'] == true){
         if ($client == '')
           $client = 'NULL';
-        $sql = "UPDATE users SET users.username = '{$user}', users.password = '{$pass}', users.is_admin = '{$is_admin}', users.client = '{$client}', users.updated_at = NOW() WHERE users.id = {$id};";
+        $sql = "UPDATE users SET users.username = '{$user}', users.password = '{$pass}', users.is_admin = '{$is_admin}', users.client = '{$client}' WHERE users.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "The User has been edited." );

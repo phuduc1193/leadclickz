@@ -55,7 +55,7 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
                   echo 'YES';
                 else echo 'NO';
               echo '</td>';
-              if ($row['client'] == NULL)
+              if ($row['client'] == NULL or $row['client'] == '0')
                 $row['client'] = 'No Client';
               echo '<td>' . $row['client'] . '</td>';
               echo '<td>' . $row['created_at'] . '</td>';
@@ -69,7 +69,7 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
         <!-- /.box-body -->
         <div class="box-footer">
           <div class="col-md-9 col-md-offset-3">
-            <button id="btnAddUser" class="btn btn-primary">Create new User</button>
+            <button id="btnAddUser" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">Create new User</button>
           </div>
         </div>
       </div>
@@ -527,6 +527,20 @@ while($row = $users->fetch_array(MYSQLI_ASSOC)){
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="editModalTitle">Edit User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="createModalTitle">Edit User</h4>
       </div>
       <div class="modal-body">
         <div class="fetched-data"></div>

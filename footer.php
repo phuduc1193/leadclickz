@@ -35,7 +35,7 @@
       $.ajax({
         type : 'post',
         url : 'api.php', //Here you will fetch records 
-        data :  'process=createUser', //Pass $id
+        data :  'process=createUser',
         success : function(data){
           $('.fetched-data').html(data);//Show fetched data from database
         }
