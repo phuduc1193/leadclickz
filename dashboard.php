@@ -1,3 +1,4 @@
+<?php require_once('class_lib.php'); ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>

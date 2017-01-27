@@ -1,7 +1,4 @@
-<?php
-  require_once('class_lib.php');
-?>
-
+<?php require_once('class_lib.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>

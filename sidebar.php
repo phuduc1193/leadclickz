@@ -20,13 +20,13 @@
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
       <li class="treeview">
-        <a href="<?php echo $home_url; ?>">
+        <a href="dashboard" onClick="event.preventDefault(); renderDashboard();">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
 <?php if ($_SESSION['user']['is_admin'] == true) {?>
       <li>
-        <a href="user.php">
+        <a href="user" onClick="event.preventDefault(); renderUser();">
           <i class="fa fa-users"></i>
           <span>Users</span>
         </a>

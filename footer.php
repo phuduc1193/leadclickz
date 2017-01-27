@@ -43,6 +43,14 @@
 <script type="text/javascript">
 	// To make Pace works on Ajax calls
 	$(document).ajaxStart(function() { Pace.restart(); });
+	
+function renderDashboard() {
+  $('.content-wrapper').load('dashboard.php');
+}
+
+function renderUser() {
+  $('.content-wrapper').load('user.php');
+}
 </script>
 <?php if ($_SERVER[REQUEST_URI] == '/'){ ?>
 <script type="text/javascript">
