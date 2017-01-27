@@ -9,6 +9,7 @@
   <meta name="keywords" content="leadclickz">
   <meta name="author" content="Duc Truong">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="http://example.com/myicon.png">
   <title>Leadclickz Dashboard</title>
   
   <!-- Style -->
@@ -20,7 +21,9 @@
   <link rel="stylesheet" href="assets/css/admin-theme.min.css">
   <link rel="stylesheet" href="assets/css/vendors.min.css">
   <link rel="stylesheet" href="assets/css/custom.css">
-
+  <script src="assets/js/pace.min.js"></script>
+  <link rel="stylesheet" href="assets/css/pace.min.css">
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>

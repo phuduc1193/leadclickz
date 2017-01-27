@@ -23,13 +23,19 @@ if (isset($_SESSION['user'])) {
 
     <!-- Main content -->
     <section class="content">
+      <?php if (isset($_SESSION['errors'])){
+              echo '<div class="clearfix"></div><div class="col-md-10 col-md-offset-2">';
+            foreach ($_SESSION['errors'] as $err_key => $err_message)
+              echo '<p class="text-red pull-left">' . $err_message . '</p>';
+            echo '</div>';
+            } # End Errors
+            unset($_SESSION['errors']); ?>
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Login Info <small>for LeadClickz internal site</small></h3>
             </div>
-<?php $users = User::find_all(); ?>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="users" class="table table-bordered table-hover">
@@ -42,10 +48,12 @@ if (isset($_SESSION['user'])) {
                   <th>Client ID</th>
                   <th>Created At</th>
                   <th>Updated At</th>
+                  <th>Edit</th>
                 </tr>
                 </thead>
                 <tbody>
-<?php while($row = $users->fetch_array(MYSQLI_ASSOC)){ 
+<?php $users = User::find_all();
+while($row = $users->fetch_array(MYSQLI_ASSOC)){ 
                 echo '<tr>';
                   echo '<td>' . $row['id'] . '</td>';
                   echo '<td>' . $row['username'] . '</td>';
@@ -57,30 +65,14 @@ if (isset($_SESSION['user'])) {
                   echo '</td>';
                   if ($row['client'] == NULL)
                     $row['client'] = 'No Client';
-                  echo '<td><a role="button" data-toggle="modal" data-target="#setClient" title="Click to set client">' . $row['client'] . '</a></td>';
+                  echo '<td>' . $row['client'] . '</td>';
                   echo '<td>' . $row['created_at'] . '</td>';
                   echo '<td>' . $row['updated_at'] . '</td>';
+                  echo '<td><a role="button" data-toggle="modal" data-target="#editUser" title="Click to edit" data-id="'. $row['id'] .'">Click Here</a></td>';
                 echo '</tr>';
       } ?>
                 </tbody>
               </table>
-<!-- Modal Set Client -->
-<div class="modal fade" id="setClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Set Client for the User</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -533,6 +525,24 @@ if (isset($_SESSION['user'])) {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="setClientTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="setClientTitle">Set Client for User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="editUserForm">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php require_once('footer.php');
 } else { 
