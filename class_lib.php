@@ -36,37 +36,14 @@
       return false;
     }
     
-    public static function register ($user, $pass) {
+    public static function add_user (){
       global $db;
-      if (User::find($user)){
-        $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
-      }
-      else {
-        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', '0', NOW(), NOW());";
-        $result = $db->query($sql);
-        if ($result->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "The registration is successful." );
-        } else {
-          $_SESSION['errors'] = array( 1 => "The registration is unsuccesful. Please contact the administrator for assistance." );
-        }
-      }
-    }
-    
-    public static function register_admin ($user, $pass) {
-      global $db;
-      if (User::find($user)){
-        $_SESSION['errors'] = array( 1 => "Username is already used, please choose different username." );
-      }
-      else {
-        if ($admin == 'admin'){ $is_admin = true;}
-        else {$is_admin = false;}
-        $sql = "INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('{$user}', '{$pass}', '1', NOW(), NOW());";
-        $result = $db->query($sql);
-        if ($result->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "The registration is successful." );
-        } else {
-          $_SESSION['errors'] = array( 1 => "The registration is unsuccesful. Please contact the administrator for assistance." );
-        }
+      $sql = "INSERT INTO users (created_at, updated_at) VALUES (NOW(), NOW());";
+      $result = $db->query($sql);
+      if ($db->affected_rows > 0) {
+        $_SESSION['success'] = array( 1 => "New User has been added." );
+      } else {
+        $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Try to set the newest User first before starting create new user." );
       }
     }
     
@@ -92,7 +69,7 @@
         $sql = "UPDATE users SET users.username = '{$user}', users.password = '{$pass}', users.is_admin = '{$is_admin}', users.client = '{$client}' WHERE users.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "The User has been edited." );
+          $_SESSION['success'] = array( 1 => "All changes with the User has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "Editing User process is jammed. Please contact the administrator for assistance." );
         }
