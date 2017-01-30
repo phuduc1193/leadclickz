@@ -20,12 +20,12 @@
   # Clients table
   $db->query("CREATE TABLE IF NOT EXISTS `clients` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(50) DEFAULT '',
   `logo` varchar(40) DEFAULT NULL,
   `street` varchar(40) DEFAULT '',
   `city` varchar(20) DEFAULT '',
-  `state` varchar(2) DEFAULT 'TX',
-  `zip_code` varchar(5) DEFAULT '',
+  `state` int(2) DEFAULT 43,
+  `zip_code` int(5) DEFAULT NULL,
   `phone` varchar(20) DEFAULT '',
   `email` varchar(254) DEFAULT '',
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -110,6 +110,7 @@
   $admin = User::find('leadclickz');
   if ($admin == false)
     $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('leadclickz', 'Lc@254259!New', '1', NOW(), NOW());");
+
 ?>
 
 <?php
