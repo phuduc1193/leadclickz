@@ -15,9 +15,9 @@
 <form role="form" id="editUserForm" class="form-horizontal" onsubmit="return editUser();">
   <div class="box-body">
     <div class="form-group">
-      <label for="id" class="col-sm-2 control-label">ID</label>
+      <label for="user_id" class="col-sm-2 control-label">ID</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="id" value="<?php echo $user['id']; ?>" disabled>
+        <input type="text" class="form-control" id="user_id" value="<?php echo $user['id']; ?>" disabled>
         <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
       </div>
     </div>
@@ -59,15 +59,15 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="created_at" class="col-sm-2 control-label">Created At</label>
+      <label for="user_created_at" class="col-sm-2 control-label">Created At</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="created_at" placeholder="<?php echo $user['created_at']; ?>" disabled>
+        <input type="text" class="form-control" id="user_created_at" placeholder="<?php echo $user['created_at']; ?>" disabled>
       </div>
     </div>
     <div class="form-group">
-      <label for="updated_at" class="col-sm-2 control-label">Updated At</label>
+      <label for="user_updated_at" class="col-sm-2 control-label">Updated At</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="updated_at" placeholder="<?php echo $user['updated_at']; ?>" disabled>
+        <input type="text" class="form-control" id="user_updated_at" placeholder="<?php echo $user['updated_at']; ?>" disabled>
       </div>
     </div>
   </div>
@@ -95,19 +95,19 @@ if($_POST['process'] == 'editClient'){
             <!----------------->
 
 <!-- form start -->
-<form role="form" id="editClientForm" class="form-horizontal" enctype="multipart/form-data" onsubmit="return editClient();">
+<form role="form" id="editClientForm" class="form-horizontal" onsubmit="return editClient();">
   <div class="box-body">
     <div class="form-group">
-      <label for="id" class="col-sm-2 control-label">ID</label>
+      <label for="client_id" class="col-sm-2 control-label">ID</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="id" value="<?php echo $client['id']; ?>" disabled>
-        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+        <input type="text" class="form-control" id="client_id" value="<?php echo $client['id']; ?>" disabled>
+        <input type="hidden" name="id" value="<?php echo $client['id']; ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="name" class="col-sm-2 control-label">Name</label>
+      <label for="client_name" class="col-sm-2 control-label">Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<?php echo $client['name']; ?>">
+        <input type="text" class="form-control" id="client_name" name="name" placeholder="Name" value="<?php echo $client['name']; ?>">
       </div>
     </div>
     <div class="form-group">
@@ -115,7 +115,8 @@ if($_POST['process'] == 'editClient'){
       <div class="col-sm-10">
         <?php echo $client['logo']; ?>
         <span class="btn btn-default btn-file">
-          Upload new Logo <input type="file" name="fileToUpload" id="fileToUpload">
+          Upload new Logo <input type="file" id="fileToUpload" disabled>
+          <input type="hidden" name="logo" value="<?php echo $client['logo']; ?>">
         </span>
       </div>
     </div>
@@ -172,15 +173,15 @@ if($_POST['process'] == 'editClient'){
       </div>
     </div>
     <div class="form-group">
-      <label for="created_at" class="col-sm-2 control-label">Created At</label>
+      <label for="client_created_at" class="col-sm-2 control-label">Created At</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="created_at" placeholder="<?php echo $client['created_at']; ?>" disabled>
+        <input type="text" class="form-control" id="client_created_at" placeholder="<?php echo $client['created_at']; ?>" disabled>
       </div>
     </div>
     <div class="form-group">
-      <label for="updated_at" class="col-sm-2 control-label">Updated At</label>
+      <label for="client_updated_at" class="col-sm-2 control-label">Updated At</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="updated_at" placeholder="<?php echo $client['updated_at']; ?>" disabled>
+        <input type="text" class="form-control" id="client_updated_at" placeholder="<?php echo $client['updated_at']; ?>" disabled>
       </div>
     </div>
   </div>
@@ -193,4 +194,56 @@ if($_POST['process'] == 'editClient'){
 </form>
 <?php }
   }
+  
+  
+
+  if($_POST['process'] == 'editService'){
+    if($_POST['service_id']) {
+      $service_id = mysqli_real_escape_string($db, $_POST['service_id']); //escape string
+      $service = Service::find_by_id($service_id)->fetch_array(MYSQLI_ASSOC);
+?>
+
+            <!------------------>
+            <!-- EDIT SERVICE -->
+            <!------------------>
+
+<!-- form start -->
+<form role="form" id="editServiceForm" class="form-horizontal" onsubmit="return editService();">
+  <div class="box-body">
+    <div class="form-group">
+      <label for="service_id" class="col-sm-2 control-label">ID</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="service_id" value="<?php echo $service['id']; ?>" disabled>
+        <input type="hidden" name="id" value="<?php echo $service['id']; ?>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_name" class="col-sm-2 control-label">Service Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Service" value="<?php echo $service['name']; ?>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_created_at" class="col-sm-2 control-label">Created At</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="service_created_at" placeholder="<?php echo $service['created_at']; ?>" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="service_updated_at" class="col-sm-2 control-label">Updated At</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="service_updated_at" placeholder="<?php echo $service['updated_at']; ?>" disabled>
+      </div>
+    </div>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer text-right">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+  </div>
+  <!-- /.box-footer -->
+</form>
+<?php }
+  }
+
 ?>

@@ -9,3 +9,8 @@
     }
   }
 ?>
+
+<?php
+  if ($_SERVER[REQUEST_URI] == '/editClient.php')
+    header('Location: ' . $home_url);
+?>

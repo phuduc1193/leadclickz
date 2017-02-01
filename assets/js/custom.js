@@ -47,6 +47,19 @@ $(document).on('show.bs.modal','#editClientModal', function (e) {
   });
 })
 
+$(document).on('show.bs.modal','#editServiceModal', function (e) {
+  $('.fetched-data').empty();
+  var service_id = $(e.relatedTarget).data('id');
+  $.ajax({
+    type : 'post',
+    url : 'api.php', //Here you will fetch records 
+    data :  'process=editService&service_id='+ service_id, //Pass $id
+    success : function(data){
+      $('.fetched-data').html(data);//Show fetched data from database
+    }
+  });
+})
+
 function addEmptyUser(){
   $.ajax({
     type : 'POST',
@@ -69,11 +82,22 @@ function addEmptyClient(){
   });
 }
 
+function addEmptyService(){
+  $.ajax({
+    type : 'POST',
+    url : 'editService.php',
+    data :  'process=newService',
+    success : function(){
+      renderServices();
+    }
+  });
+}
+
 function editUser() {
   $.ajax({
-    type: "POST",
-    url: "editUser.php",
-    data: $("#editUserForm").serialize(),
+    type: 'POST',
+    url: 'editUser.php',
+    data: $('#editUserForm').serialize(),
     success: function(){
       renderUsers();
       $('body').removeClass('modal-open');
@@ -85,11 +109,25 @@ function editUser() {
 
 function editClient() {
   $.ajax({
-    type: "POST",
-    url: "editClient.php",
-    data: $("#editClientForm").serialize(),
+    type: 'POST',
+    url: 'editClient.php',
+    data: $('#editClientForm').serialize(),
     success: function(){
       renderUsers();
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    }, error: function() {alert('Error');}
+  });
+  return false;
+}
+
+function editService() {
+  $.ajax({
+    type: 'POST',
+    url: 'editService.php',
+    data: $('#editServiceForm').serialize(),
+    success: function(){
+      renderServices();
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
     }

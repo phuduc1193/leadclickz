@@ -24,11 +24,6 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li>
-        <a href="projects" onClick="event.preventDefault(); renderProjects();">
-          <i class="fa fa-database"></i> <span>Projects</span>
-        </a>
-      </li>
 <?php if ($_SESSION['user']['is_admin'] == true) {?>
       <li>
         <a href="users" onClick="event.preventDefault(); renderUsers();">
@@ -46,6 +41,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          <li><a href="accounts" onClick="event.preventDefault(); renderProjects();"><i class="fa fa-circle-o"></i> List of Projects</a></li>
           <li><a href="services" onClick="event.preventDefault(); renderServices();"><i class="fa fa-circle-o"></i> List of Services</a></li>
           <li><a href="accounts" onClick="event.preventDefault(); renderAccounts();"><i class="fa fa-circle-o"></i> Account Managements</a></li>
         </ul>

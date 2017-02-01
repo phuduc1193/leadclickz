@@ -45,7 +45,7 @@
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New User has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Try to set the newest User first before starting create new user." );
+        $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Try to set the newest User first before starting create new one." );
       }
     }
     
@@ -117,7 +117,7 @@
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Client has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Try to set the newest Client first before starting create new user." );
+        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Try to set the newest Client first before starting create new one." );
       }
     }
     
@@ -172,6 +172,54 @@
       $sql = "SELECT * FROM states WHERE NOT states.id = '{$id}';";
       $result = $db->query($sql);
       return $result;
+    }
+  }
+
+  ###############################################################
+  #####                  Class: Service                     #####
+  ###############################################################
+  
+  class Service {
+    public static function find_all (){
+      global $db;
+      $sql = "SELECT * FROM services;";
+      $result = $db->query($sql);
+      return $result;
+    }
+    
+    public static function find_by_id ($id){
+      global $db;
+      $id = mysqli_real_escape_string($db, $id);
+      $sql = "SELECT * FROM services WHERE services.id = '{$id}';";
+      $result = $db->query($sql);
+      return $result;
+    }
+    
+    public static function add (){
+      global $db;
+      $sql = "INSERT INTO services (created_at, updated_at) VALUES (NOW(), NOW());";
+      $result = $db->query($sql);
+      if ($db->affected_rows > 0) {
+        $_SESSION['success'] = array( 1 => "New Service has been added." );
+      } else {
+        $_SESSION['errors'] = array( 1 => "Creating Service process is jammed. Try to set the newest Service first before starting create new one." );
+      }
+    }
+    
+    # only for admin user
+    public static function edit ($id, $name){
+      global $db;
+      $id = mysqli_real_escape_string($db, $id);
+      $name = mysqli_real_escape_string($db, $name);
+      if ($_SESSION['user']['is_admin'] == true){
+        $sql = "UPDATE services SET services.name = '{$name}' WHERE services.id = {$id};";
+        $result = $db->query($sql);
+        if ($db->affected_rows > 0) {
+          $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
+        } else {
+          $_SESSION['errors'] = array( 1 => $db->error );
+        }
+      }
     }
   }
 ?>

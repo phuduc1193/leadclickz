@@ -100,7 +100,7 @@
   # Services table
   $db->query("CREATE TABLE IF NOT EXISTS `services` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(20) DEFAULT '',
   `created_at` TIMESTAMP NOT NULL DEFAULT 0,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -110,7 +110,8 @@
   $admin = User::find('leadclickz');
   if ($admin == false)
     $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('leadclickz', 'Lc@254259!New', '1', NOW(), NOW());");
-
+    
+  Client::edit(1, 'SomeName', 'SomeLogo', 'SomeStreet', 'SomeCity', 43, 77002, 'SomePhone', 'SomeEmail', 1);
 ?>
 
 <?php

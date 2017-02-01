@@ -4,12 +4,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    User
-    <small>Control user</small>
+    Service
+    <small>Control Service</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo $home_url; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">User</li>
+    <li class="active">Services</li>
   </ol>
 </section>
 
@@ -33,7 +33,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Login Info <small>for LeadClickz internal site</small></h3>
+          <h3 class="box-title">Services <small>we offer wide range of services</small></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -41,33 +41,21 @@
             <thead>
             <tr>
               <th>ID</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th>Admin</th>
-              <th>Client ID</th>
+              <th>Service Name</th>
               <th>Created At</th>
               <th>Updated At</th>
               <th>Edit</th>
             </tr>
             </thead>
             <tbody>
-<?php $users = User::find_all();
-while($user = $users->fetch_array(MYSQLI_ASSOC)){ 
+<?php $services = Service::find_all();
+while($service = $services->fetch_array(MYSQLI_ASSOC)){ 
             echo '<tr>';
-              echo '<td>' . $user['id'] . '</td>';
-              echo '<td>' . $user['username'] . '</td>';
-              echo '<td>' . $user['password'] . '</td>';
-              echo '<td>';
-                if ($user['is_admin'] == '1')
-                  echo 'YES';
-                else echo 'NO';
-              echo '</td>';
-              if ($user['client'] == NULL or $user['client'] == '0')
-                $user['client'] = 'No Client';
-              echo '<td>' . $user['client'] . '</td>';
-              echo '<td>' . $user['created_at'] . '</td>';
-              echo '<td>' . $user['updated_at'] . '</td>';
-              echo '<td><a role="button" data-toggle="modal" data-target="#editUserModal" title="Click to edit" data-id="'. $user['id'] .'">Click Here</a></td>';
+              echo '<td>' . $service['id'] . '</td>';
+              echo '<td>' . $service['name'] . '</td>';
+              echo '<td>' . $service['created_at'] . '</td>';
+              echo '<td>' . $service['updated_at'] . '</td>';
+              echo '<td><a role="button" data-toggle="modal" data-target="#editServiceModal" title="Click to edit" data-id="'. $service['id'] .'">Click Here</a></td>';
             echo '</tr>';
   } ?>
             </tbody>
@@ -76,7 +64,7 @@ while($user = $users->fetch_array(MYSQLI_ASSOC)){
         <!-- /.box-body -->
         <div class="box-footer">
           <div class="col-md-9 col-md-offset-3">
-            <button id="btnAddUser" class="btn btn-primary" onclick="addEmptyUser();">Add new User</button>
+            <button id="btnAddUser" class="btn btn-primary" onclick="addEmptyService();">Add new Service</button>
           </div>
         </div>
       </div>
@@ -149,26 +137,12 @@ while($client = $clients->fetch_array(MYSQLI_ASSOC)){
 <!-- /.content -->
 
 
-<!-- Edit User Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+<!-- Edit Service Modal -->
+<div class="modal fade" id="editServiceModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="editModalTitle">Edit User</h4>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Edit Client Modal -->
-<div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="editModalTitle">Edit Client</h4>
+        <h4 class="modal-title" id="editModalTitle">Edit Service</h4>
       </div>
       <div class="modal-body">
         <div class="fetched-data"></div>
