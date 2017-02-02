@@ -1,6 +1,5 @@
 <?php require_once('class_lib.php'); ?>
 
-<link rel="stylesheet" href="assets/css/dataTables.min.css">
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
@@ -115,7 +114,9 @@ while($client = $clients->fetch_array(MYSQLI_ASSOC)){
                   echo 'YES';
                 else echo 'NO';
               echo '</td>';
-              $client['address'] = $client['street'] . ' ' . $client['city'] . ', ' . $client['state'] . ' ' . $client['zip_code'];
+              $state = (State::find_by_id($client['state'])->fetch_array(MYSQLI_ASSOC));
+              $client['address'] = $client['street'] . ' ' . $client['city'] . ', ' . $state['name'] . ' ' . $client['zip_code'];
+             
               if ($client['street'] == '')
                 echo '<td>No Address</td>';
               else echo '<td>' . $client['address'] . '</td>';

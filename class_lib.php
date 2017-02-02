@@ -117,32 +117,26 @@
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Client has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Try to set the newest Client first before starting create new one." );
+        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Try to set the newest Client first before starting create new one.");
       }
     }
     
     # only for admin user
     public static function edit ($id, $name, $logo, $street, $city, $state, $zip, $phone, $email, $active){
       global $db;
-      $id = mysqli_real_escape_string($db, $id);
-      $name = mysqli_real_escape_string($db, $name);
-      $logo = mysqli_real_escape_string($db, $logo);
-      $street = mysqli_real_escape_string($db, $street);
-      $city = mysqli_real_escape_string($db, $city);
-      $state = mysqli_real_escape_string($db, $state);
-      $zip = mysqli_real_escape_string($db, $zip);
-      $phone = mysqli_real_escape_string($db, $phone);
-      $email = mysqli_real_escape_string($db, $email);
-      $active = mysqli_real_escape_string($db, $active);
-      if ($_SESSION['user']['is_admin'] == true){
-        $sql = "UPDATE clients SET clients.name = '{$name}', clients.logo = '{$logo}', clients.street = '{$street}', clients.city = '{$city}', clients.state = {$state}, clients.zip_code = {$zip}, clients.phone = '{$phone}', clients.email = '{$email}', clients.active = {$active} WHERE clients.id = {$id};";
-        $result = $db->query($sql);
-        if ($db->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
-        } else {
-          $_SESSION['errors'] = array( 1 => $db->error );
+      $sql = "UPDATE clients SET name=?, logo=?, street=?, city=?, state=?, zip_code=?, phone=?, email=?, active=? WHERE id=?;";
+      if ($_SESSION['user']['is_admin'] == true) {
+        if($stmt = $db->prepare($sql)){
+          $stmt->bind_param('ssssisssii', $name, $logo, $street, $city, $state, $zip, $phone, $email, $active, $id); 
+          $stmt->execute();
+          if ($stmt->affected_rows > 0) {
+            $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
+          } else {
+            $_SESSION['errors'] = array( 1 => $db->error );
+          }
         }
       }
+      $stmt->close();
     }
   }
   

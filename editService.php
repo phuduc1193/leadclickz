@@ -10,7 +10,3 @@
   }
 ?>
 
-<?php
-  if ($_SERVER[REQUEST_URI] == '/editService.php')
-    header('Location: ' . $home_url);
-?>

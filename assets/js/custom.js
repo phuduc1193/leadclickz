@@ -94,30 +94,36 @@ function addEmptyService(){
 }
 
 function editUser() {
+  console.log($('#editUserForm').serialize());
   $.ajax({
     type: 'POST',
     url: 'editUser.php',
     data: $('#editUserForm').serialize(),
-    success: function(){
-      renderUsers();
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-    }
+    cache: false,
+    dataType:'json',
+    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+  }).always(function(){
+    renderUsers();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   });
   return false;
 }
 
 function editClient() {
+  console.log($('#editClientForm').serialize());
   $.ajax({
     type: 'POST',
     url: 'editClient.php',
     data: $('#editClientForm').serialize(),
-    success: function(){
-      renderUsers();
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-    }, error: function() {alert('Error');}
-  });
+    cache: false,
+    dataType:'json',
+    contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+  }).always(function(){
+    renderUsers();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  });;
   return false;
 }
 
@@ -126,16 +132,16 @@ function editService() {
     type: 'POST',
     url: 'editService.php',
     data: $('#editServiceForm').serialize(),
-    success: function(){
-      renderServices();
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-    }
-  });
+    cache: false,
+    dataType:'json',
+    contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+  }).always(function(){
+    renderServices();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  });;
   return false;
 }
 
 $(document).ready(function() {
-    $('#users').DataTable();
-    $('#clients').DataTable();
 } );

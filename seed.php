@@ -25,7 +25,7 @@
   `street` varchar(40) DEFAULT '',
   `city` varchar(20) DEFAULT '',
   `state` int(2) DEFAULT 43,
-  `zip_code` int(5) DEFAULT NULL,
+  `zip_code` varchar(5) DEFAULT NULL,
   `phone` varchar(20) DEFAULT '',
   `email` varchar(254) DEFAULT '',
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -109,9 +109,7 @@
 
   $admin = User::find('leadclickz');
   if ($admin == false)
-    $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('leadclickz', 'Lc@254259!New', '1', NOW(), NOW());");
-    
-  Client::edit(1, 'SomeName', 'SomeLogo', 'SomeStreet', 'SomeCity', 43, 77002, 'SomePhone', 'SomeEmail', 1);
+    $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('admin', 'pass', '1', NOW(), NOW());");
 ?>
 
 <?php
