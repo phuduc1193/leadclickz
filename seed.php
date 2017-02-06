@@ -110,6 +110,8 @@
   $admin = User::find('leadclickz');
   if ($admin == false)
     $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('admin', 'pass', '1', NOW(), NOW());");
+
+  Client::edit( 1, 'editedClient', 'editedLogo', 'editedStreet', 'editedCity', 43, '77002', '800-000-0000', 'email@edit.com', 1);
 ?>
 
 <?php

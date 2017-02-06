@@ -132,7 +132,7 @@
           if ($stmt->affected_rows > 0) {
             $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
           } else {
-            $_SESSION['errors'] = array( 1 => $db->error );
+            $_SESSION['errors'] = array( 1 => "No changes are made." . $db->error );
           }
         }
       }

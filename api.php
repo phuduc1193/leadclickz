@@ -100,8 +100,7 @@ if($_POST['process'] == 'editClient'){
     <div class="form-group">
       <label for="client_id" class="col-sm-2 control-label">ID</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="client_id" value="<?php echo $client['id']; ?>" disabled>
-        <input type="hidden" name="id" value="<?php echo $client['id']; ?>">
+        <input type="text" class="form-control" id="client_id" name="id" value="<?php echo $client['id']; ?>" readonly>
       </div>
     </div>
     <div class="form-group">
@@ -208,7 +207,7 @@ if($_POST['process'] == 'editClient'){
             <!------------------>
 
 <!-- form start -->
-<form role="form" id="editServiceForm" class="form-horizontal" onsubmit="return editService();">
+<form role="form" id="editServiceForm" class="form-horizontal" method="POST" action="editService.php">
   <div class="box-body">
     <div class="form-group">
       <label for="service_id" class="col-sm-2 control-label">ID</label>

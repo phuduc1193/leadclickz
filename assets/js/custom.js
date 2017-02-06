@@ -99,7 +99,7 @@ function editUser() {
     type: 'POST',
     url: 'editUser.php',
     data: $('#editUserForm').serialize(),
-    cache: false,
+    cache: true,
     dataType:'json',
     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
   }).always(function(){
@@ -116,7 +116,7 @@ function editClient() {
     type: 'POST',
     url: 'editClient.php',
     data: $('#editClientForm').serialize(),
-    cache: false,
+    cache: true,
     dataType:'json',
     contentType: "application/x-www-form-urlencoded; charset=UTF-8"
   }).always(function(){
@@ -132,7 +132,7 @@ function editService() {
     type: 'POST',
     url: 'editService.php',
     data: $('#editServiceForm').serialize(),
-    cache: false,
+    cache: true,
     dataType:'json',
     contentType: "application/x-www-form-urlencoded; charset=UTF-8"
   }).always(function(){
