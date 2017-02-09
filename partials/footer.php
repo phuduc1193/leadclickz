@@ -16,16 +16,5 @@
   <script src="assets/js/demo.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="assets/js/custom.js"></script>
-
-
-<?php if ($_SERVER[REQUEST_URI] == '/'){ ?>
-<script type="text/javascript">
-$('.content-wrapper').load('dashboard.php');
-</script>
-<?php } ?>
 </body>
 </html>
-<?php
-  if ($_SERVER[REQUEST_URI] == '/footer.php')
-    header('Location: ' . $home_url);
-?>

@@ -110,33 +110,47 @@
       return false;
     }
 
-    public static function add (){
+    public static function add ($name, $logo, $street, $city, $state, $zip, $phone, $email, $active){
       global $db;
-      $sql = "INSERT INTO clients (created_at, updated_at) VALUES (NOW(), NOW());";
+      $name = mysqli_real_escape_string($db, $name);
+      $logo = mysqli_real_escape_string($db, $logo);
+      $street = mysqli_real_escape_string($db, $street);
+      $city = mysqli_real_escape_string($db, $city);
+      $state = mysqli_real_escape_string($db, $state);
+      $zip = mysqli_real_escape_string($db, $zip);
+      $phone = mysqli_real_escape_string($db, $phone);
+      $email = mysqli_real_escape_string($db, $email);
+      $active = mysqli_real_escape_string($db, $active);
+      $sql = "INSERT INTO clients (name, logo, street, city, state, zip_code, phone, email, active, created_at, updated_at) ";
+      $sql .= "VALUES ('{$name}', '{$logo}', '{$street}', '{$city}', {$state}, '{$zip}', '{$phone}', '{$email}', {$active}, NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Client has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Try to set the newest Client first before starting create new one.");
+        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Contact the Administrator for more assistance.");
       }
     }
     
     # only for admin user
     public static function edit ($id, $name, $logo, $street, $city, $state, $zip, $phone, $email, $active){
       global $db;
-      $sql = "UPDATE clients SET name=?, logo=?, street=?, city=?, state=?, zip_code=?, phone=?, email=?, active=? WHERE id=?;";
-      if ($_SESSION['user']['is_admin'] == true) {
-        if($stmt = $db->prepare($sql)){
-          $stmt->bind_param('ssssisssii', $name, $logo, $street, $city, $state, $zip, $phone, $email, $active, $id); 
-          $stmt->execute();
-          if ($stmt->affected_rows > 0) {
-            $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
-          } else {
-            $_SESSION['errors'] = array( 1 => "No changes are made." . $db->error );
-          }
-        }
+      $id = mysqli_real_escape_string($db, $id);
+      $name = mysqli_real_escape_string($db, $name);
+      $logo = mysqli_real_escape_string($db, $logo);
+      $street = mysqli_real_escape_string($db, $street);
+      $city = mysqli_real_escape_string($db, $city);
+      $state = mysqli_real_escape_string($db, $state);
+      $zip = mysqli_real_escape_string($db, $zip);
+      $phone = mysqli_real_escape_string($db, $phone);
+      $email = mysqli_real_escape_string($db, $email);
+      $active = mysqli_real_escape_string($db, $active);
+      $sql = "UPDATE clients SET name='{$name}', logo='{$logo}', street='{$street}', city='{$city}', state={$state}, zip_code='{$zip}', phone='{$phone}', email='{$email}', active={$active} WHERE id={$id};";
+      $result = $db->query($sql);
+      if ($db->affected_rows > 0) {
+        $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
+      } else {
+        $_SESSION['errors'] = array( 1 => "No changes are made. Contact the Administrator for more assistance." . $db->error);
       }
-      $stmt->close();
     }
   }
   
