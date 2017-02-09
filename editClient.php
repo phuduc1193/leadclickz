@@ -146,9 +146,4 @@
 } else { #Not admin
   header('Location: ' . $home_url);
 }
-var_dump($_SESSION);
-echo '<br><br>';
-var_dump($_GET);
 ?>
-
-

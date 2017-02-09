@@ -125,7 +125,7 @@ if (!isset($_SESSION['user']))
   while($user = $users->fetch_array(MYSQLI_ASSOC)){ 
               echo '<tr>';
                 echo '<td class="hidden-xs">' . $user['id'] . '</td>';
-                echo '<td>' . $user['username'] . '</td>';
+                echo '<td><a href="editUser.php?process=editUser&id=' . $user['id'] . '">' .$user['username'] . '</a></td>';
                 echo '<td>' . $user['password'] . '</td>';
                 echo '<td>';
                   if ($user['is_admin'] == '1')
@@ -147,7 +147,7 @@ if (!isset($_SESSION['user']))
           <!-- /.box-body -->
           <div class="box-footer">
             <div class="col-md-9 col-md-offset-3">
-              <form action="editClient.php" method="POST">
+              <form action="editUser.php" method="GET">
                 <input type="hidden" name="process" value="addNewUser">
                 <button type="submit" class="btn btn-primary">Add new User login</button>
               </form>

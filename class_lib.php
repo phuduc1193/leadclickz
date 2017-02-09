@@ -38,14 +38,19 @@
       return false;
     }
     
-    public static function add (){
+    public static function add ($user, $pass, $is_admin, $client){
       global $db;
-      $sql = "INSERT INTO users (created_at, updated_at) VALUES (NOW(), NOW());";
+      $user = mysqli_real_escape_string($db, $user);
+      $pass = mysqli_real_escape_string($db, $pass);
+      $is_admin = mysqli_real_escape_string($db, $is_admin);
+      $client = mysqli_real_escape_string($db, $client);
+      if ($client == null) $client = 'null';
+      $sql = "INSERT INTO users (username, password, is_admin, client, created_at, updated_at) VALUES ('{$user}', '{$pass}', {$is_admin}, {$client}, NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New User has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Try to set the newest User first before starting create new one." );
+        $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Please contact the Administration for further assistance if needed." . $db->error);
       }
     }
     
@@ -127,7 +132,7 @@
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Client has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Contact the Administrator for more assistance.");
+        $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Please contact the Administration for further assistance if needed.");
       }
     }
     
@@ -149,7 +154,7 @@
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
       } else {
-        $_SESSION['errors'] = array( 1 => "No changes are made. Contact the Administrator for more assistance." . $db->error);
+        $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed.");
       }
     }
   }

@@ -1,9 +1,5 @@
-
 <?php
 require_once('../class_lib.php');
-var_dump($_SESSION);
-echo '<br><br>';
-var_dump($_POST);
 if($_SESSION['user']['is_admin'] == true){
   $id = (is_numeric($_POST['id']) ? (int)$_POST['id'] : 0);
   $active = (is_numeric($_POST['active']) ? (int)$_POST['active'] : 0);
