@@ -104,7 +104,9 @@ if (!isset($_SESSION['user']))
           </div>
         </div>
         <!-- /.box -->
-        <div class="box">
+
+        <button data-toggle="collapse" data-target="#loginInfo" class="btn btn-success" style="margin-bottom: 1em;">View Login Info</button>
+        <div class="box collapse" id="loginInfo">
           <div class="box-header">
             <h3 class="box-title">Login Info <small>for LeadClickz management site</small></h3>
           </div>
