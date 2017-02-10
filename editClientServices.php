@@ -7,22 +7,20 @@
   require_once('partials/sidebar.php');
   # Get client info
   if (isset($_GET['id']))
-    $service = Service::find_by_id($_GET['id'])->fetch_array(MYSQL_ASSOC);
+    $client = Client::find_by_id($_GET['id'])->fetch_array(MYSQL_ASSOC);
 ?>
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Services
+      Client Services
       <small>Management</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo $home_url; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><a href="<?php echo $home_url . "services.php"; ?>">Services</a></li>
-      <li class="active">
-        <?php if ($_GET['process']=='addNewService') echo 'New'; else echo 'Edit';?>
-      </li>
+      <li class="active"><a href="<?php echo $home_url . "clients.php"; ?>">Services</a></li>
+      <li class="active">Edit Services</li>
     </ol>
   </section>
   <section class="content">
@@ -30,33 +28,37 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
           <div class="box-header">
-            <i class="fa fa-users"></i><h3 class="box-title"><?php if ($_GET['process']=='addNewService') echo 'New'; else echo 'Edit';?> Service</h3>
+            <i class="fa fa-gears"></i><h3 class="box-title">Edit Service for <?php echo $client['name']; ?></h3>
           </div>
           <!-- form start -->
-          <form role="form" id="editClientForm" class="form-horizontal" action="functions/serviceHandler.php" method="POST">
+          <form role="form" id="editClientForm" class="form-horizontal" action="functions/clientHandler.php" method="POST">
             <div class="box-body">
               <div class="form-group">
                 <label for="client_id" class="col-sm-2 control-label">ID</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="client_id" name="id" value="<?php echo $service['id']; ?>" readonly>
+                  <input type="text" class="form-control" id="client_id" name="id" value="<?php echo $client['id']; ?>" readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label for="client_name" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="client_name" name="name" value="<?php echo $service['name']; ?>">
+                  <input type="text" class="form-control" id="client_name" name="name" value="<?php echo $client['name']; ?>" readonly>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="description" class="col-sm-2 control-label">Description</label>
+                <label for="client_name" class="col-sm-2 control-label">Services</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" id="description" name="description"><?php echo $service['description']; ?></textarea>
+                  <?php $services = Service::find_all();
+                  while($service = $services->fetch_array(MYSQLI_ASSOC)){
+                    if (!$service['name'] == '')
+                      echo '<label class="checkbox-inline"><input type="checkbox" value="' . $service['id'] . '">' . $service['name'] . '</label>';
+                    } ?>
                 </div>
-              </div>
             </div>
+            
+
             <!-- /.box-body -->
             <div class="box-footer text-right">
-              <a class="btn btn-default btn-md" href="<?php echo $home_url . "services.php"; ?>">Back</a>
+              <a class="btn btn-default btn-md" href="<?php echo $home_url . "clients.php"; ?>">Back</a>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             <!-- /.box-footer -->

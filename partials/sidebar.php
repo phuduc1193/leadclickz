@@ -24,12 +24,6 @@
           <span>Clients</span>
         </a>
       </li>
-      <li>
-        <a href="services.php">
-          <i class="fa fa-cogs"></i>
-          <span>Services Type</span>
-        </a>
-      </li>
 <?php } ?>
       <li>
         <a href="projects.php">
@@ -43,6 +37,14 @@
           <span>Username and Password</span>
         </a>
       </li>
+<?php if ($_SESSION['user']['is_admin'] == true) {?>
+      <li>
+        <a href="services.php">
+          <i class="fa fa-cogs"></i>
+          <span>Services</span>
+        </a>
+      </li>
+<?php } ?>
       <li>
         <a href="mailbox.php">
           <i class="fa fa-envelope"></i> <span>Mailbox</span>

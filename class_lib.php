@@ -208,9 +208,9 @@
       return $result;
     }
     
-    public static function add (){
+    public static function add ($name, $description){
       global $db;
-      $sql = "INSERT INTO services (created_at, updated_at) VALUES (NOW(), NOW());";
+      $sql = "INSERT INTO services (name, description, created_at, updated_at) VALUES ('{$name}', '{$description}', NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Service has been added." );
@@ -220,12 +220,12 @@
     }
     
     # only for admin user
-    public static function edit ($id, $name){
+    public static function edit ($id, $name, $description){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
       $name = mysqli_real_escape_string($db, $name);
       if ($_SESSION['user']['is_admin'] == true){
-        $sql = "UPDATE services SET services.name = '{$name}' WHERE services.id = {$id};";
+        $sql = "UPDATE services SET name = '{$name}', description = '{$description}' WHERE services.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
