@@ -235,9 +235,9 @@
     }
   }
 
-  ###############################################################
-  #####               Class: Client Services               #####
-  ###############################################################
+  #############################################################
+  #####               Class: Client Services              #####
+  #############################################################
 
   class ClientServices {
     public static function find_all (){
@@ -250,7 +250,7 @@
     public static function find_by_client ($client){
       global $db;
       $client = mysqli_real_escape_string($db, $client);
-      $sql = "SELECT * FROM clientServices WHERE client = {$client};";
+      $sql = "SELECT * FROM clientServices WHERE client = {$client} ORDER BY service ASC;";
       $result = $db->query($sql);
       return $result;
     }
