@@ -121,6 +121,22 @@
   FOREIGN KEY (`service`) REFERENCES services(`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 
+  # Projects table
+  $db->query("CREATE TABLE IF NOT EXISTS `projects` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `client` int(5) DEFAULT NULL,
+  `service` int(5) DEFAULT NULL,
+  `title` varchar(254) DEFAULT '',
+  `description` varchar(254) DEFAULT '',
+  `progress` int(3) DEFAULT 0,
+  `opened_at` TIMESTAMP NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT 0,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`client`) REFERENCES clients(`id`),
+  FOREIGN KEY (`service`) REFERENCES services(`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+
   $admin = User::find('leadclickz');
   if ($admin == false)
     $db->query("INSERT INTO users (username, password, is_admin, created_at, updated_at) VALUES ('admin', 'pass', '1', NOW(), NOW());");

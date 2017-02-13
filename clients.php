@@ -51,7 +51,6 @@ if (!isset($_SESSION['user']))
                 <th class="hidden-xs">ID</th>
                 <th>Client Name</th>
                 <th>Logo</th>
-                <th>Services</th>
                 <th class="hidden-xs">Active</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -67,16 +66,6 @@ if (!isset($_SESSION['user']))
                   $client['name'] = 'Click to Edit';
                 echo '<td><a href="editClient.php?process=editClient&id=' . $client['id'] . '">' . $client['name'] . '</a></td>';
                 echo '<td>' . $client['logo'] . '</td>';
-                echo '<td>';
-                $listOfServices = '';
-                $servicesList = ClientServices::find_by_client ($client['id']);
-                while($serviceInList = $servicesList->fetch_array(MYSQL_ASSOC)){
-                  $serviceNameInList = Service::find_by_id($serviceInList['service'])->fetch_array(MYSQL_ASSOC);
-                  $listOfServices .= $serviceNameInList['name'] . ', ';
-                }
-                $listOfServices = substr($listOfServices, 0, -2);
-                
-                echo '<a href="editClientServices.php?process=editServiceFromClients&id=' . $client['id'] . '">' . $listOfServices . '</a></td>';
                 echo '<td class="hidden-xs">';
                   if ($client['active'] == '1')
                     echo 'YES';

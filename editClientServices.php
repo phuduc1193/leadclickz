@@ -64,7 +64,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-right">
-              <a class="btn btn-default btn-md" href="<?php if($_GET['process'] == 'editServiceFromClients') echo $home_url . "clients.php"; else echo $home_url . "services.php"; ?>">Back</a>
+              <a class="btn btn-default btn-md" href="<?php echo $home_url . "services.php"; ?>">Back</a>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             <!-- /.box-footer -->

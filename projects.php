@@ -12,12 +12,12 @@ if (!isset($_SESSION['user']))
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Clients
+      Projects
       <small>Management</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo $home_url; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Clients</li>
+      <li class="active">Projects</li>
     </ol>
   </section>
   
