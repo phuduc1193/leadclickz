@@ -43,3 +43,10 @@
 [09-Feb-2017 16:00:00 UTC] PHP Fatal error:  require_once(): Failed opening required './class_lib.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/functions/clientHandler.php on line 3
 [09-Feb-2017 16:00:00 UTC] PHP Stack trace:
 [09-Feb-2017 16:00:00 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/clientHandler.php:0
+[10-Feb-2017 21:34:10 UTC] PHP Fatal error:  Call to undefined method ClientServices::find() in /home/ubuntu/workspace/functions/clientHandler.php on line 16
+[10-Feb-2017 21:34:10 UTC] PHP Stack trace:
+[10-Feb-2017 21:34:10 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/clientHandler.php:0
+[13-Feb-2017 18:54:11 UTC] PHP Warning:  Variable passed to each() is not an array or object in /home/ubuntu/workspace/functions/clientHandler.php on line 22
+[13-Feb-2017 18:54:11 UTC] PHP Stack trace:
+[13-Feb-2017 18:54:11 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/clientHandler.php:0
+[13-Feb-2017 18:54:11 UTC] PHP   2. each() /home/ubuntu/workspace/functions/clientHandler.php:22

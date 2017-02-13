@@ -32,6 +32,7 @@
           </div>
           <!-- form start -->
           <form role="form" id="editClientForm" class="form-horizontal" action="functions/clientHandler.php" method="POST">
+            <input type="hidden" name="process" value="addClientServices">
             <div class="box-body">
               <div class="form-group">
                 <label for="client_id" class="col-sm-2 control-label">ID</label>
@@ -48,17 +49,22 @@
                 <label for="client_name" class="col-sm-2 control-label">Services</label>
                 <div class="col-sm-10">
                   <?php $services = Service::find_all();
+                  $clientServicesResults = ClientServices::find_all()->fetch_all();
+
                   while($service = $services->fetch_array(MYSQLI_ASSOC)){
-                    if (!$service['name'] == '')
-                      echo '<label class="checkbox-inline"><input type="checkbox" value="' . $service['id'] . '">' . $service['name'] . '</label>';
-                    } ?>
+                    if (!$service['name'] == ''){
+                      $status = ClientServices::check_service_status($client['id'], $service['id'])->fetch_array(MYSQLI_ASSOC);
+                      if (!$service['name'] == '')
+                        echo '<label class="checkbox-inline"><input type="checkbox" name="services[]" value="' . $service['id'] . '" ';
+                        if ($status['status'] == 1) echo 'checked ';
+                        echo '>' . $service['name'] . '</label>';
+                    }
+                  } ?>
                 </div>
             </div>
-            
-
             <!-- /.box-body -->
             <div class="box-footer text-right">
-              <a class="btn btn-default btn-md" href="<?php echo $home_url . "clients.php"; ?>">Back</a>
+              <a class="btn btn-default btn-md" href="<?php echo $home_url . "services.php"; ?>">Back</a>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             <!-- /.box-footer -->
@@ -72,4 +78,6 @@
 } else { #Not admin
   header('Location: ' . $home_url);
 }
+
+                  var_dump($clientServicesResults);
 ?>

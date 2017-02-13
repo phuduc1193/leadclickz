@@ -4,6 +4,7 @@
 <?php
 if (!isset($_SESSION['user']))
   header('Location: ' . $home_url);
+
 ?>
 
 
@@ -65,6 +66,15 @@ if (!isset($_SESSION['user']))
                 if ($client['name'] == "")
                   $client['name'] = 'Click to Edit';
                 echo '<td><a href="editClientServices.php?process=editService&id=' . $client['id'] . '">' . $client['name'] . '</a></td>';
+        $services = Service::find_all();
+  while($service = $services->fetch_array(MYSQLI_ASSOC)){
+    if (!$service['name'] == ''){
+      $status = ClientServices::check_service_status($client['id'], $service['id'])->fetch_array(MYSQLI_ASSOC);
+      if ($status['status'] == 1)
+        echo '<td><i class="fa fa-check" aria-hidden="true"></i></td>';
+      else echo '<td></td>';
+    }
+  }
               echo '</tr>';
     } ?>
               </tbody>
@@ -73,7 +83,8 @@ if (!isset($_SESSION['user']))
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
-        <div class="box">
+        <button data-toggle="collapse" data-target="#servicesInfo" class="btn btn-success" style="margin-bottom: 1em;">Manage LeadClickz Services</button>
+        <div class="box collapse" id="servicesInfo">
           <div class="box-header">
             <h3 class="box-title">LeadClickz Services</h3>
           </div>

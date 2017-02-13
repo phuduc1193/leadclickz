@@ -1,10 +1,10 @@
 <?php
   require_once('config.php');
-  
+
   ###############################################################
   #####                     Class: User                     #####
   ###############################################################
-  
+
   class User {
     public static function find_all (){
       global $db;
@@ -15,7 +15,7 @@
       }
       return false;
     }
-    
+
     public static function find_by_id ($id){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -26,7 +26,7 @@
       }
       return false;
     }
-    
+
     public static function find ($user){
       global $db;
       $user = mysqli_real_escape_string($db, $user);
@@ -37,7 +37,7 @@
       }
       return false;
     }
-    
+
     public static function add ($user, $pass, $is_admin, $client){
       global $db;
       $user = mysqli_real_escape_string($db, $user);
@@ -53,7 +53,7 @@
         $_SESSION['errors'] = array( 1 => "Creating User process is jammed. Please contact the Administration for further assistance if needed." . $db->error);
       }
     }
-    
+
     public static function login ($user, $pass){
       global $db;
       $user = mysqli_real_escape_string($db, $user);
@@ -68,8 +68,7 @@
         unset($_SESSION['user']);
       }
     }
-    
-    # only for admin user
+
     public static function edit ($id, $user, $pass, $is_admin, $client){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -91,11 +90,11 @@
       }
     }
   }
-  
+
   ###############################################################
   #####                    Class: Client                    #####
   ###############################################################
-  
+
   class Client {
     public static function find_all (){
       global $db;
@@ -135,8 +134,7 @@
         $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Please contact the Administration for further assistance if needed.");
       }
     }
-    
-    # only for admin user
+
     public static function edit ($id, $name, $logo, $street, $city, $state, $zip, $phone, $email, $active){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -158,11 +156,11 @@
       }
     }
   }
-  
+
   ###############################################################
   #####                    Class: State                     #####
   ###############################################################
-  
+
   class State {
     public static function find_all (){
       global $db;
@@ -170,7 +168,7 @@
       $result = $db->query($sql);
       return $result;
     }
-    
+
     public static function find_by_id ($id){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -178,7 +176,7 @@
       $result = $db->query($sql);
       return $result;
     }
-    
+
     public static function find_all_except ($id){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -191,7 +189,7 @@
   ###############################################################
   #####                  Class: Service                     #####
   ###############################################################
-  
+
   class Service {
     public static function find_all (){
       global $db;
@@ -199,7 +197,7 @@
       $result = $db->query($sql);
       return $result;
     }
-    
+
     public static function find_by_id ($id){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -207,19 +205,20 @@
       $result = $db->query($sql);
       return $result;
     }
-    
+
     public static function add ($name, $description){
       global $db;
+      $name = mysqli_real_escape_string($db, $name);
+      $description = mysqli_real_escape_string($db, $description);
       $sql = "INSERT INTO services (name, description, created_at, updated_at) VALUES ('{$name}', '{$description}', NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
         $_SESSION['success'] = array( 1 => "New Service has been added." );
       } else {
-        $_SESSION['errors'] = array( 1 => "Creating Service process is jammed. Try to set the newest Service first before starting create new one." );
+        $_SESSION['errors'] = array( 1 => "Creating Service process is jammed. Please contact the Administration for further assistance if needed." );
       }
     }
-    
-    # only for admin user
+
     public static function edit ($id, $name, $description){
       global $db;
       $id = mysqli_real_escape_string($db, $id);
@@ -230,8 +229,73 @@
         if ($db->affected_rows > 0) {
           $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
         } else {
-          $_SESSION['errors'] = array( 1 => $db->error );
+          $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
         }
+      }
+    }
+  }
+
+  ###############################################################
+  #####               Class: Client Services               #####
+  ###############################################################
+
+  class ClientServices {
+    public static function find_all (){
+      global $db;
+      $sql = "SELECT * FROM clientServices;";
+      $result = $db->query($sql);
+      return $result;
+    }
+
+    public static function find_by_client ($client){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $sql = "SELECT * FROM clientServices WHERE client = {$client};";
+      $result = $db->query($sql);
+      return $result;
+    }
+
+    public static function check_service_status ($client, $service){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $service = mysqli_real_escape_string($db, $service);
+      $sql = "SELECT status FROM clientServices WHERE client = {$client} AND service = {$service};";
+      $result = $db->query($sql);
+      return $result;
+    }
+    
+    public static function reset_status ($client, $service){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $service = mysqli_real_escape_string($db, $service);
+      $sql = "UPDATE clientServices SET status = 0 WHERE client = {$client} AND service = {$service};";
+      $result = $db->query($sql);
+    }
+
+    public static function activate ($client, $service){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $service = mysqli_real_escape_string($db, $service);
+      $sql = "UPDATE clientServices SET status = 1 WHERE client = {$client} AND service = {$service};";
+      $result = $db->query($sql);
+      if ($db->affected_rows > 0) {
+        $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
+      } else {
+        $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
+      }
+    }
+
+    public static function add ($client, $service){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $service = mysqli_real_escape_string($db, $service);
+      $status = mysqli_real_escape_string($db, $status);
+      $sql = "INSERT INTO clientServices (client, service, status, created_at, updated_at) VALUES ({$client}, {$service}, 1, NOW(), NOW());";
+      $result = $db->query($sql);
+      if ($db->affected_rows > 0) {
+        $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
+      } else {
+        $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
       }
     }
   }
