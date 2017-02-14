@@ -4,6 +4,11 @@
 <?php
 if (!isset($_SESSION['user']))
   header('Location: ' . $home_url);
+
+$clients = Client::find_all();
+$clientCount = $clients->num_rows;
+$users = User::find_all();
+$userCount = $users->num_rows;
 ?>
 
 
@@ -41,10 +46,11 @@ if (!isset($_SESSION['user']))
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Client Info</h3>
+            <h3 class="box-title"><?php if($_GET['process'] == 'viewClients') echo 'Client Info'; elseif($_GET['process'] == 'viewLoginInfo') echo 'Login Info <small>for LeadClickz management site</small>'; ?></h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
+            <?php if($_GET['process'] == 'viewClients') { ?>
             <table id="clients" class="table table-bordered table-striped table-responsive">
               <thead>
               <tr>
@@ -59,12 +65,12 @@ if (!isset($_SESSION['user']))
               </tr>
               </thead>
               <tbody>
-  <?php $clients = Client::find_all();
+  <?php 
   while($client = $clients->fetch_array(MYSQLI_ASSOC)){ 
               echo '<tr>';
                 echo '<td class="hidden-xs">' . $client['id'] . '</td>';
                 if ($client['name'] == "")
-                  $client['name'] = 'Click to Edit';
+                  $client['name'] = 'N/A';
                 echo '<td><a href="editClient.php?process=editClient&id=' . $client['id'] . '">' . $client['name'] . '</a></td>';
                 echo '<td>' . $client['logo'] . '</td>';
                 $listOfServices = '';
@@ -99,26 +105,7 @@ if (!isset($_SESSION['user']))
     } ?>
               </tbody>
             </table>
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer">
-            <div class="col-md-9 col-md-offset-3">
-              <form action="editClient.php" method="GET">
-                <input type="hidden" name="process" value="addNewClient">
-                <button type="submit" class="btn btn-primary">Add new Client</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- /.box -->
-
-        <button data-toggle="collapse" data-target="#loginInfo" class="btn btn-success" style="margin-bottom: 1em;">View Login Info</button>
-        <div class="box collapse" id="loginInfo">
-          <div class="box-header">
-            <h3 class="box-title">Login Info <small>for LeadClickz management site</small></h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
+            <?php } elseif ($_GET['process'] == 'viewLoginInfo') { ?>
             <table id="users" class="table table-bordered table-hover table-responsive">
               <thead>
               <tr>
@@ -130,11 +117,13 @@ if (!isset($_SESSION['user']))
               </tr>
               </thead>
               <tbody>
-  <?php $users = User::find_all();
+  <?php 
   while($user = $users->fetch_array(MYSQLI_ASSOC)){ 
               echo '<tr>';
                 echo '<td class="hidden-xs">' . $user['id'] . '</td>';
-                echo '<td><a href="editUser.php?process=editUser&id=' . $user['id'] . '">' .$user['username'] . '</a></td>';
+                if ($user['username'] == "")
+                  $user['username'] = 'N/A';
+                echo '<td><a href="editUser.php?process=editUser&id=' . $user['id'] . '">' . $user['username'] . '</a></td>';
                 echo '<td>' . $user['password'] . '</td>';
                 echo '<td>';
                   if ($user['is_admin'] == '1')
@@ -152,14 +141,15 @@ if (!isset($_SESSION['user']))
     } ?>
               </tbody>
             </table>
+            <?php } ?>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <div class="col-md-9 col-md-offset-3">
-              <form action="editUser.php" method="GET">
-                <input type="hidden" name="process" value="addNewUser">
-                <button type="submit" class="btn btn-primary">Add new User login</button>
-              </form>
+            <div class="col-md-3 col-md-offset-3">
+              Total Clients: <?php echo $clientCount; ?>
+            </div>
+            <div class="col-md-6">
+              Total LeadClickz Logins: <?php echo $clientCount; ?>
             </div>
           </div>
         </div>

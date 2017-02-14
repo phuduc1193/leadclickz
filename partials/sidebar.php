@@ -18,11 +18,20 @@
         </a>
       </li>
 <?php if ($_SESSION['user']['is_admin'] == true) {?>
-      <li>
-        <a href="clients.php">
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-users"></i>
           <span>Clients</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href="clients.php?process=viewClients"><i class="fa fa-circle-o"></i> View All Clients</a></li>
+          <li><a href="clients.php?process=viewLoginInfo"><i class="fa fa-circle-o"></i> View LeadClickz Logins</a></li>
+          <li><a href="editClient.php?process=addNewClient"><i class="fa fa-circle-o"></i> Add New Client</a></li>
+          <li><a href="editUser.php?process=addNewUser"><i class="fa fa-circle-o"></i> Add New Login Account</a></li>
+        </ul>
       </li>
 <?php } ?>
       <li>

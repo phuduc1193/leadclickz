@@ -7,14 +7,12 @@
 
   <!-- Scripts -->
   <script src="assets/js/vendors.min.js"></script>
-  <script type="text/javascript" src="assets/js/dataTables.min.js"></script>
   <!-- AdminLTE App -->
   <script src="assets/js/app.min.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="assets/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="assets/js/demo.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="assets/js/custom.js"></script>
 </body>
 </html>
