@@ -34,11 +34,19 @@
         </ul>
       </li>
 <?php } ?>
-      <li>
-        <a href="projects.php">
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-suitcase"></i>
           <span>Projects</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href="projects.php?process=viewProjects"><i class="fa fa-circle-o"></i> View Projects</a></li>
+          <li><a href="editProject.php?process=addNewProject"><i class="fa fa-circle-o"></i> Add New Project</a></li>
+          <li><a href="projects.php?process=viewInactiveProjects"><i class="fa fa-circle-o"></i> Archives</a></li>
+        </ul>
       </li>
       <li>
         <a href="accounts.php">

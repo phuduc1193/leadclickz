@@ -9,6 +9,7 @@
   if (isset($_GET['id']))
     $project = Project::find_by_id($_GET['id'])->fetch_array(MYSQL_ASSOC);
 ?>
+
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -19,7 +20,7 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo $home_url; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><a href="<?php echo $home_url . "projects.php"; ?>">Projects</a></li>
+      <li class="active"><a href="<?php echo $home_url . "projects.php?process=viewProjects"; ?>">Projects</a></li>
       <li class="active">Edit</li>
     </ol>
   </section>
@@ -28,7 +29,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="box box-primary">
           <div class="box-header">
-            <i class="fa fa-users"></i><h3 class="box-title">Edit Project</h3>
+            <i class="fa fa-users"></i><h3 class="box-title"><?php if ($_GET['process']=='addNewProject') echo 'New'; else echo 'Edit';?> Project</h3>
           </div>
           <!-- form start -->
           <form role="form" id="editProjectForm" class="form-horizontal" action="functions/projectHandler.php" method="POST">
@@ -42,7 +43,7 @@
               <div class="form-group">
                 <label for="project_title" class="col-sm-2 control-label">Title</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="project_title" name="name" value="<?php echo $project['title']; ?>">
+                  <input type="text" class="form-control" id="project_title" name="title" value="<?php echo $project['title']; ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -54,25 +55,54 @@
               <div class="form-group">
                 <label for="client" class="col-sm-2 control-label">Client</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="client" name="client" value="<?php echo $project['client']; ?>">
+                  <select id="client" name="client" class="form-control">
+                    <?php
+                    if ($_GET['process'] == 'addNewProject'){
+                      echo '<option disabled selected>Select Client...</option>';
+                    } elseif ($_GET['process'] == 'editProject') {
+                      $client = Client::find_by_id($project['client'])->fetch_array(MYSQL_ASSOC);
+                      echo '<option value=' . $client['id'] . ' selected>' . $client['name'] . '</option>';
+                    }
+                    $clients = Client::find_all();
+                    while ($client = $clients->fetch_array(MYSQL_ASSOC)){
+                      echo '<option value=' . $client['id'] . '>' . $client['name'] . '</option>';
+                    } ?>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
                 <label for="service" class="col-sm-2 control-label">Service Type</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="service" name="service" value="<?php echo $project['service']; ?>">
+                  <select id="service" name="service" class="form-control">
+                    <?php
+                    if ($_GET['process'] == 'addNewProject'){
+                      echo '<option disabled selected>Select Service...</option>';
+                    } elseif ($_GET['process'] == 'editProject') {
+                      $service = Service::find_by_id($project['service'])->fetch_array(MYSQL_ASSOC);
+                      echo '<option value=' . $service['id'] . ' selected>' . $service['name'] . '</option>';
+                    }
+                    $services = Service::find_all();
+                    while ($service = $services->fetch_array(MYSQL_ASSOC)){
+                      echo '<option value=' . $service['id'] . '>' . $service['name'] . '</option>';
+                    } ?>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
                 <label for="progress" class="col-sm-2 control-label">Progress</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="progress" name="progress" value="<?php echo $project['progress']; ?>">
+                  <input id="progress" data-slider-id='progressSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="<?php echo $project['progress']; ?>"/>
                 </div>
               </div>
               <div class="form-group">
-                <label for="project_opened_at" class="col-sm-2 control-label">Opened At</label>
+                <label for="project_opened_at" class="col-sm-2 control-label">Start Date</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="project_opened_at" placeholder="<?php if (!$project['opened_at']=='0000-00-00 00:00:00') echo $project['opened_at']; ?>">
+                  <div class="input-group date" id="project_opened_at" data-provide="datepicker">
+                    <input type="text" class="form-control" name="opened_at">
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">

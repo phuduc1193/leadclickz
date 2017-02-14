@@ -33,7 +33,7 @@
             <i class="fa fa-users"></i><h3 class="box-title"><?php if ($_GET['process']=='addNewService') echo 'New'; else echo 'Edit';?> Service</h3>
           </div>
           <!-- form start -->
-          <form role="form" id="editServiceForm" class="form-horizontal" action="functions/projectHandler.php" method="POST">
+          <form role="form" id="editServiceForm" class="form-horizontal" action="functions/serviceHandler.php" method="POST">
             <div class="box-body">
               <div class="form-group">
                 <label for="client_id" class="col-sm-2 control-label">ID</label>

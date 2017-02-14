@@ -1,1 +1,4 @@
 .login-wrapper{margin-top: 15%;padding:0 0.5em 0 0.5em;}
+#progressSlider .slider-selection {
+	background: #BABABA;
+}

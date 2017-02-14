@@ -89,10 +89,6 @@ if (!isset($_SESSION['user']))
           <!-- /.box-body -->
           <div class="box-footer">
             <div class="col-md-9 col-md-offset-3">
-              <form action="editProject.php" method="GET">
-                <input type="hidden" name="process" value="addNewService">
-                <button type="submit" class="btn btn-primary">Add new Project</button>
-              </form>
             </div>
           </div>
         </div>
