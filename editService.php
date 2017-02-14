@@ -68,7 +68,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-right">
-              <a class="btn btn-default btn-md" href="<?php echo $home_url . "projects.php"; ?>">Back</a>
+              <a class="btn btn-default btn-md" href="<?php echo $home_url . "services.php?process=viewServices"; ?>">Back</a>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             <!-- /.box-footer -->

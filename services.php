@@ -4,7 +4,6 @@
 <?php
 if (!isset($_SESSION['user']))
   header('Location: ' . $home_url);
-
 ?>
 
 
@@ -42,16 +41,18 @@ if (!isset($_SESSION['user']))
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Client Services</h3>
+            <h3 class="box-title"><?php if($_GET['process'] == 'viewClientServices') echo 'Clients <small>with Services Status</small>'; elseif($_GET['process'] == 'viewServices') echo 'LeadClickz Services'; ?></h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
+            <?php if($_GET['process'] == 'viewClientServices') { ?>
             <table id="services" class="table table-bordered table-striped table-responsive">
               <thead>
               <tr>
                 <th class="hidden-xs">Client ID</th>
                 <th>Client Name</th>
   <?php $services = Service::find_all();
+  $serviceCount = $services->num_rows;
   while($service = $services->fetch_array(MYSQLI_ASSOC)){
     if (!$service['name'] == '')
       echo '<th>' . $service['name'] . '</th>';
@@ -79,17 +80,7 @@ if (!isset($_SESSION['user']))
     } ?>
               </tbody>
             </table>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-        <button data-toggle="collapse" data-target="#servicesInfo" class="btn btn-success" style="margin-bottom: 1em;">Manage LeadClickz Services</button>
-        <div class="box collapse" id="servicesInfo">
-          <div class="box-header">
-            <h3 class="box-title">LeadClickz Services</h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
+            <?php } elseif ($_GET['process'] == 'viewServices') { ?>
             <table id="services" class="table table-bordered table-striped table-responsive">
               <thead>
               <tr>
@@ -111,16 +102,9 @@ if (!isset($_SESSION['user']))
     } ?>
               </tbody>
             </table>
+            <?php } ?>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer">
-            <div class="col-md-9 col-md-offset-3">
-              <form action="editService.php" method="GET">
-                <input type="hidden" name="process" value="addNewService">
-                <button type="submit" class="btn btn-primary">Add new Service</button>
-              </form>
-            </div>
-          </div>
         </div>
         <!-- /.box -->
       </div>

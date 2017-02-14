@@ -13,5 +13,5 @@ if($_SESSION['user']['is_admin'] == true){
   }
 }
 $home_url = substr($home_url, 0, -9);
-header('Location: ' . $home_url . 'services.php');
+header('Location: ' . $home_url . 'services.php?process=viewServices');
 ?>

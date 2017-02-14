@@ -19,7 +19,7 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo $home_url; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><a href="<?php echo $home_url . "clients.php"; ?>">Clients</a></li>
+      <li class="active"><a href="<?php echo $home_url . "clients.php?process=viewClients"; ?>">Clients</a></li>
       <li class="active">
         <?php if ($_GET['process']=='addNewClient') echo 'New'; else echo 'Edit';?>
       </li>

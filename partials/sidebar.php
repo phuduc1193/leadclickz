@@ -47,11 +47,19 @@
         </a>
       </li>
 <?php if ($_SESSION['user']['is_admin'] == true) {?>
-      <li>
-        <a href="services.php">
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-cogs"></i>
           <span>Services</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href="services.php?process=viewClientServices"><i class="fa fa-circle-o"></i> View Client Service Packages</a></li>
+          <li><a href="services.php?process=viewServices"><i class="fa fa-circle-o"></i> Manage LeadClickz Services</a></li>
+          <li><a href="editService.php?process=addNewService"><i class="fa fa-circle-o"></i> Add New Service</a></li>
+        </ul>
       </li>
 <?php } ?>
       <li>
