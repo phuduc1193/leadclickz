@@ -46,11 +46,12 @@
                   <input type="text" class="form-control" id="client_name" name="name" value="<?php echo $client['name']; ?>" readonly>
                 </div>
               </div>
-                <label for="client_name" class="col-sm-2 control-label">Services</label>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Services</label>
                 <div class="col-sm-10">
                   <?php $services = Service::find_all();
                   $clientServicesResults = ClientServices::find_all()->fetch_all();
-
+  
                   while($service = $services->fetch_array(MYSQLI_ASSOC)){
                     if (!$service['name'] == ''){
                       $status = ClientServices::check_service_status($client['id'], $service['id'])->fetch_array(MYSQLI_ASSOC);
@@ -61,6 +62,7 @@
                     }
                   } ?>
                 </div>
+              </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-right">

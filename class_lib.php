@@ -83,6 +83,7 @@
         $sql .= "users.client = '{$client}' WHERE users.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
+          unset($_SESSION['errors']);
           $_SESSION['success'] = array( 1 => "All changes with the User has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
@@ -98,7 +99,7 @@
   class Client {
     public static function find_all (){
       global $db;
-      $sql = "SELECT * FROM clients;";
+      $sql = "SELECT * FROM clients ORDER BY id ASC;";
       $result = $db->query($sql);
       return $result;
     }
@@ -129,6 +130,7 @@
       $sql .= "VALUES ('{$name}', '{$logo}', '{$street}', '{$city}', {$state}, '{$zip}', '{$phone}', '{$email}', {$active}, NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
+        unset($_SESSION['errors']);
         $_SESSION['success'] = array( 1 => "New Client has been added." );
       } else {
         $_SESSION['errors'] = array( 1 => "Creating Client process is jammed. Please contact the Administration for further assistance if needed.");
@@ -150,6 +152,7 @@
       $sql = "UPDATE clients SET name='{$name}', logo='{$logo}', street='{$street}', city='{$city}', state={$state}, zip_code='{$zip}', phone='{$phone}', email='{$email}', active={$active} WHERE id={$id};";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
+        unset($_SESSION['errors']);
         $_SESSION['success'] = array( 1 => "All changes with the Client has been saved." );
       } else {
         $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed.");
@@ -213,6 +216,7 @@
       $sql = "INSERT INTO services (name, description, created_at, updated_at) VALUES ('{$name}', '{$description}', NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
+        unset($_SESSION['errors']);
         $_SESSION['success'] = array( 1 => "New Service has been added." );
       } else {
         $_SESSION['errors'] = array( 1 => "Creating Service process is jammed. Please contact the Administration for further assistance if needed." );
@@ -227,6 +231,7 @@
         $sql = "UPDATE services SET name = '{$name}', description = '{$description}' WHERE services.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
+          unset($_SESSION['errors']);
           $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
@@ -251,6 +256,14 @@
       global $db;
       $client = mysqli_real_escape_string($db, $client);
       $sql = "SELECT * FROM clientServices WHERE client = {$client} ORDER BY service ASC;";
+      $result = $db->query($sql);
+      return $result;
+    }
+
+    public static function find_active_by_client ($client){
+      global $db;
+      $client = mysqli_real_escape_string($db, $client);
+      $sql = "SELECT * FROM clientServices WHERE client = {$client} AND status = 1 ORDER BY service ASC;";
       $result = $db->query($sql);
       return $result;
     }
@@ -282,7 +295,9 @@
       $result = $db->query($sql);
       if ($_SESSION['user']['is_admin'] == true){
         if ($db->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
+          unset($_SESSION['errors']);
+          if (!isset($_SESSION['success']))
+            $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
         }
@@ -298,7 +313,9 @@
       $result = $db->query($sql);
       if ($_SESSION['user']['is_admin'] == true){
         if ($db->affected_rows > 0) {
-          $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
+          unset($_SESSION['errors']);
+          if (!isset($_SESSION['success']))
+            $_SESSION['success'] = array( 1 => "All changes with the Service has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
         }
@@ -351,6 +368,7 @@
       $sql = "INSERT INTO projects (client, service, title, description, created_at, updated_at) VALUES ({$client}, {$service}, '{$title}', '{$description}', NOW(), NOW());";
       $result = $db->query($sql);
       if ($db->affected_rows > 0) {
+        unset($_SESSION['errors']);
         $_SESSION['success'] = array( 1 => "New Project has been added." );
       } else {
         $_SESSION['errors'] = array( 1 => "Creating Project process is jammed. Please contact the Administration for further assistance if needed." );
@@ -365,9 +383,10 @@
       $progress = mysqli_real_escape_string($db, $progress);
       $open = mysqli_real_escape_string($db, $open);
       if ($_SESSION['user']['is_admin'] == true){
-        $sql = "UPDATE projects SET name = '{$name}', description = '{$description}' WHERE projects.id = {$id};";
+        $sql = "UPDATE projects SET title = '{$title}', description = '{$description}', progress = {$progress}, open = {$open} WHERE projects.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
+          unset($_SESSION['errors']);
           $_SESSION['success'] = array( 1 => "All changes with the Project has been saved." );
         } else {
           $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );

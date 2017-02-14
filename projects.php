@@ -41,7 +41,7 @@ if (!isset($_SESSION['user']))
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Client Info</h3>
+            <h3 class="box-title">Project Info</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
@@ -49,109 +49,49 @@ if (!isset($_SESSION['user']))
               <thead>
               <tr>
                 <th class="hidden-xs">ID</th>
+                <th>Title</th>
+                <th>Description</th>
                 <th>Client Name</th>
-                <th>Logo</th>
-                <th>Services</th>
-                <th class="hidden-xs">Active</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th class="hidden-xs">Address</th>
+                <th>Service Type</th>
+                <th>Progress</th>
+                <th class="hidden-xs">Start Date</th>
+                <th class="hidden-xs">Create Date</th>
               </tr>
               </thead>
               <tbody>
-  <?php $clients = Client::find_all();
-  while($client = $clients->fetch_array(MYSQLI_ASSOC)){ 
+  <?php $projects = Project::find_all();
+  while($project = $projects->fetch_array(MYSQLI_ASSOC)){ 
               echo '<tr>';
-                echo '<td class="hidden-xs">' . $client['id'] . '</td>';
-                if ($client['name'] == "")
-                  $client['name'] = 'Click to Edit';
-                echo '<td><a href="editClient.php?process=editClient&id=' . $client['id'] . '">' . $client['name'] . '</a></td>';
-                echo '<td>' . $client['logo'] . '</td>';
-                echo '<td>Suppose to List services</td>';
-                echo '<td class="hidden-xs">';
-                  if ($client['active'] == '1')
-                    echo 'YES';
-                  else echo 'NO';
-                echo '</td>';
-                # Client Email
-                if ($client['email'] == '')
-                  echo '<td>No Email</td>';
-                else echo '<td><a href="mailto:' . $client['email'] . '">' . $client['email'] . '</a></td>';
-                # Client Phone
-                if ($client['phone'] == '')
-                  echo '<td>No Phone</td>';
-                else echo '<td><a href="tel: +1' . $client['phone'] . '">' . $client['phone'] . '</a></td>';
-                # Client Address
-                $state = (State::find_by_id($client['state'])->fetch_array(MYSQLI_ASSOC));
-                $client['address'] = $client['street'] . ' ' . $client['city'] . ', ' . $state['name'] . ' ' . $client['zip_code'];
-                if ($client['street'] == '')
-                  echo '<td class="hidden-xs">No Address</td>';
-                else echo '<td class="hidden-xs">' . $client['address'] . '</td>';
-                
+                echo '<td class="hidden-xs">' . $project['id'] . '</td>';
+                echo '<td><a href="editProject.php?process=editProject&id=' . $project['id'] . '">' . $project['title'] . '</a></td>';
+                echo '<td>' . $project['description'] . '</td>';
+                $project['client'] = (Client::find_by_id($project['client'])->fetch_array(MYSQL_ASSOC));
+                echo '<td>' . $project['client']['name'] . '</td>';
+                $project['service'] = (Service::find_by_id($project['service'])->fetch_array(MYSQL_ASSOC));
+                echo '<td>' . $project['service']['name'] . '</td>';
+  ?>
+  <td>
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $project['progress']; ?>%; color: #141414" >
+      <?php echo $project['progress']; ?>%
+    </div>
+  </div></td>
+  <?php
+                if (!$project['opened_at'] == '0000-00-00 00:00:00')
+                  echo '<td class="hidden-xs">' . date('j M, Y', strtotime($project['opened_at'])) . '</td>';
+                else echo '<td class="hidden-xs"></td>';
+                echo '<td class="hidden-xs">' . date('j M, Y', strtotime($project['created_at'])) . '</td>';
               echo '</tr>';
-    } ?>
+  } ?>
               </tbody>
             </table>
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
             <div class="col-md-9 col-md-offset-3">
-              <form action="editClient.php" method="GET">
-                <input type="hidden" name="process" value="addNewClient">
-                <button type="submit" class="btn btn-primary">Add new Client</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- /.box -->
-
-        <button data-toggle="collapse" data-target="#loginInfo" class="btn btn-success" style="margin-bottom: 1em;">View Login Info</button>
-        <div class="box collapse" id="loginInfo">
-          <div class="box-header">
-            <h3 class="box-title">Login Info <small>for LeadClickz management site</small></h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <table id="users" class="table table-bordered table-hover table-responsive">
-              <thead>
-              <tr>
-                <th class="hidden-xs">ID</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Admin</th>
-                <th>Client</th>
-              </tr>
-              </thead>
-              <tbody>
-  <?php $users = User::find_all();
-  while($user = $users->fetch_array(MYSQLI_ASSOC)){ 
-              echo '<tr>';
-                echo '<td class="hidden-xs">' . $user['id'] . '</td>';
-                echo '<td><a href="editUser.php?process=editUser&id=' . $user['id'] . '">' .$user['username'] . '</a></td>';
-                echo '<td>' . $user['password'] . '</td>';
-                echo '<td>';
-                  if ($user['is_admin'] == '1')
-                    echo 'YES';
-                  else echo 'NO';
-                echo '</td>';
-                if ($user['client'] == NULL or $user['client'] == '0')
-                  $user['client'] = 'No Client';
-                else {
-                  $tempClient = Client::find_by_id($user['client'])->fetch_array(MYSQLI_ASSOC);
-                  $user['client'] = $tempClient['name'];
-                }
-                echo '<td>' . $user['client'] . '</td>';
-              echo '</tr>';
-    } ?>
-              </tbody>
-            </table>
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer">
-            <div class="col-md-9 col-md-offset-3">
-              <form action="editUser.php" method="GET">
-                <input type="hidden" name="process" value="addNewUser">
-                <button type="submit" class="btn btn-primary">Add new User login</button>
+              <form action="editProject.php" method="GET">
+                <input type="hidden" name="process" value="addNewService">
+                <button type="submit" class="btn btn-primary">Add new Project</button>
               </form>
             </div>
           </div>
@@ -165,5 +105,4 @@ if (!isset($_SESSION['user']))
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
 <?php require_once('partials/footer.php');

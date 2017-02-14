@@ -33,7 +33,7 @@
             <i class="fa fa-users"></i><h3 class="box-title"><?php if ($_GET['process']=='addNewService') echo 'New'; else echo 'Edit';?> Service</h3>
           </div>
           <!-- form start -->
-          <form role="form" id="editClientForm" class="form-horizontal" action="functions/serviceHandler.php" method="POST">
+          <form role="form" id="editServiceForm" class="form-horizontal" action="functions/projectHandler.php" method="POST">
             <div class="box-body">
               <div class="form-group">
                 <label for="client_id" class="col-sm-2 control-label">ID</label>
@@ -53,10 +53,22 @@
                   <textarea class="form-control" rows="5" id="description" name="description"><?php echo $service['description']; ?></textarea>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="client_created_at" class="col-sm-2 control-label">Created At</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="client_created_at" placeholder="<?php echo $service['created_at']; ?>" disabled>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="client_updated_at" class="col-sm-2 control-label">Updated At</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="client_updated_at" placeholder="<?php echo $service['updated_at']; ?>" disabled>
+                </div>
+              </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-right">
-              <a class="btn btn-default btn-md" href="<?php echo $home_url . "services.php"; ?>">Back</a>
+              <a class="btn btn-default btn-md" href="<?php echo $home_url . "projects.php"; ?>">Back</a>
               <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             <!-- /.box-footer -->

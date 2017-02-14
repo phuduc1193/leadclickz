@@ -111,7 +111,7 @@
   # Client-Services table
   $db->query("CREATE TABLE IF NOT EXISTS `clientServices` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `client` int(5) DEFAULT NULL,
+  `client` int(5) NOT NULL,
   `service` int(5) DEFAULT NULL,
   `status` int(1) DEFAULT 0,
   `created_at` TIMESTAMP NOT NULL DEFAULT 0,

@@ -12,7 +12,7 @@ if($_SESSION['user']['is_admin'] == true){
     } else {
       Client::edit($id, $_POST['name'], $_POST['logo'], $_POST['street'], $_POST['city'], $state, $zip, $phone, $_POST['email'], $active);
     }
-  } elseif  ($_POST['process']=='addClientServices'){
+    
     #reset
     $servicesForClient = ClientServices::find_by_client($id);
     while ($row = $servicesForClient->fetch_array(MYSQLI_ASSOC)){
@@ -30,5 +30,5 @@ if($_SESSION['user']['is_admin'] == true){
   }
 }
 $home_url = substr($home_url, 0, -9);
-header('Location: ' . $home_url . 'services.php');
+header('Location: ' . $home_url . 'clients.php');
 ?>

@@ -118,6 +118,32 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Services</label>
+                <div class="col-sm-10">
+                  <?php if($_GET['process'] == 'addNewClient'){
+                    $services = Service::find_all();
+                    while($service = $services->fetch_array(MYSQLI_ASSOC)){
+                      if (!$service['name'] == '')
+                        echo '<label class="checkbox-inline"><input type="checkbox" name="services[]" value="' . $service['id'] . '">' . $service['name'] . '</label>';
+                    }
+                  } else {
+                    $services = Service::find_all();
+                    $clientServicesResults = ClientServices::find_all()->fetch_all();
+    
+                    while($service = $services->fetch_array(MYSQLI_ASSOC)){
+                      if (!$service['name'] == ''){
+                        $status = ClientServices::check_service_status($client['id'], $service['id'])->fetch_array(MYSQLI_ASSOC);
+                        if (!$service['name'] == '')
+                          echo '<label class="checkbox-inline"><input type="checkbox" name="services[]" value="' . $service['id'] . '" ';
+                          if ($status['status'] == 1) echo 'checked ';
+                          echo '>' . $service['name'] . '</label>';
+                      }
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
+              <div class="form-group">
                 <label for="client_created_at" class="col-sm-2 control-label">Created At</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="client_created_at" placeholder="<?php echo $client['created_at']; ?>" disabled>
