@@ -91,14 +91,14 @@
               <div class="form-group">
                 <label for="progress" class="col-sm-2 control-label">Progress</label>
                 <div class="col-sm-10">
-                  <input id="progress" data-slider-id='progressSlider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="<?php echo $project['progress']; ?>"/>
+                  <input type="range" name="progress" min="0" max="100" value="<?php echo $project['progress']; ?>" step="5"/>
                 </div>
               </div>
               <div class="form-group">
                 <label for="project_opened_at" class="col-sm-2 control-label">Start Date</label>
                 <div class="col-sm-10">
                   <div class="input-group date" id="project_opened_at" data-provide="datepicker">
-                    <input type="text" class="form-control" name="opened_at">
+                    <input type="text" class="form-control" name="opened_at" value="<?php echo date('m/d/Y', strtotime($project['opened_at'])); ?>">
                     <div class="input-group-addon">
                       <span class="glyphicon glyphicon-th"></span>
                     </div>

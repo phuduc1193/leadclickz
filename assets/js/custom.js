@@ -41,8 +41,3 @@ $(document).on('show.bs.modal','#editServiceModal', function (e) {
 })
 
 $('.datepicker').datepicker();
-$('#progressSlider').slider({
-	formatter: function(value) {
-		return 'Current value: ' + value;
-	}
-});

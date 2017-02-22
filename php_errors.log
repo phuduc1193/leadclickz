@@ -50,3 +50,53 @@
 [13-Feb-2017 18:54:11 UTC] PHP Stack trace:
 [13-Feb-2017 18:54:11 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/clientHandler.php:0
 [13-Feb-2017 18:54:11 UTC] PHP   2. each() /home/ubuntu/workspace/functions/clientHandler.php:22
+[22-Feb-2017 21:41:57 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:41:57 UTC] PHP Stack trace:
+[22-Feb-2017 21:41:57 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:41:57 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:41:57 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:41:58 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:41:58 UTC] PHP Stack trace:
+[22-Feb-2017 21:41:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:41:58 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:41:58 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:41:59 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:41:59 UTC] PHP Stack trace:
+[22-Feb-2017 21:41:59 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:41:59 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:41:59 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:41:59 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:41:59 UTC] PHP Stack trace:
+[22-Feb-2017 21:41:59 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:41:59 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:41:59 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:42:00 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:42:00 UTC] PHP Stack trace:
+[22-Feb-2017 21:42:00 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:42:00 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:42:00 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:42:00 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:42:00 UTC] PHP Stack trace:
+[22-Feb-2017 21:42:00 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:42:00 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:13
+[22-Feb-2017 21:42:00 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:42:31 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:42:31 UTC] PHP Stack trace:
+[22-Feb-2017 21:42:31 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:42:31 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:14
+[22-Feb-2017 21:42:31 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:42:32 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:42:32 UTC] PHP Stack trace:
+[22-Feb-2017 21:42:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:42:32 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:14
+[22-Feb-2017 21:42:32 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:47:58 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:47:58 UTC] PHP Stack trace:
+[22-Feb-2017 21:47:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:47:58 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:14
+[22-Feb-2017 21:47:58 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365
+[22-Feb-2017 21:53:41 UTC] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, integer given in /home/ubuntu/workspace/class_lib.php on line 365
+[22-Feb-2017 21:53:41 UTC] PHP Stack trace:
+[22-Feb-2017 21:53:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/functions/projectHandler.php:0
+[22-Feb-2017 21:53:41 UTC] PHP   2. Project::add() /home/ubuntu/workspace/functions/projectHandler.php:14
+[22-Feb-2017 21:53:41 UTC] PHP   3. mysqli_real_escape_string() /home/ubuntu/workspace/class_lib.php:365

@@ -45,6 +45,14 @@ if (!isset($_SESSION['user']))
           </div>
           <!-- /.box-header -->
           <div class="box-body">
+            <?php
+  if ($_GET['process'] == 'viewProjects')
+    $projects = Project::find_all();
+  elseif ($_GET['process'] == 'viewInactiveProjects')
+    $projects = Project::find_inactive();
+  
+  if ($projects->num_rows != 0){
+            ?>
             <table id="clients" class="table table-bordered table-striped table-responsive">
               <thead>
               <tr>
@@ -59,7 +67,7 @@ if (!isset($_SESSION['user']))
               </tr>
               </thead>
               <tbody>
-  <?php $projects = Project::find_all();
+  <?php
   while($project = $projects->fetch_array(MYSQLI_ASSOC)){ 
               echo '<tr>';
                 echo '<td class="hidden-xs">' . $project['id'] . '</td>';
@@ -77,12 +85,12 @@ if (!isset($_SESSION['user']))
     </div>
   </div></td>
   <?php
-                if (!$project['opened_at'] == '0000-00-00 00:00:00')
+                if ($project['opened_at'] != '0000-00-00 00:00:00')
                   echo '<td class="hidden-xs">' . date('j M, Y', strtotime($project['opened_at'])) . '</td>';
                 else echo '<td class="hidden-xs"></td>';
                 echo '<td class="hidden-xs">' . date('j M, Y', strtotime($project['created_at'])) . '</td>';
               echo '</tr>';
-  } ?>
+  } } else echo "No Records."; ?>
               </tbody>
             </table>
           </div>

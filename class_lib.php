@@ -334,6 +334,13 @@
       $result = $db->query($sql);
       return $result;
     }
+    
+    public static function find_inactive (){
+      global $db;
+      $sql = "SELECT * FROM projects WHERE progress = 100;";
+      $result = $db->query($sql);
+      return $result;
+    }
 
     public static function find_by_id ($id){
       global $db;
@@ -383,13 +390,13 @@
       $progress = mysqli_real_escape_string($db, $progress);
       $open = mysqli_real_escape_string($db, $open);
       if ($_SESSION['user']['is_admin'] == true){
-        $sql = "UPDATE projects SET title = '{$title}', description = '{$description}', progress = {$progress}, open = {$open} WHERE projects.id = {$id};";
+        $sql = "UPDATE projects SET title = '{$title}', description = '{$description}', progress = {$progress}, opened_at = FROM_UNIXTIME({$open}) WHERE projects.id = {$id};";
         $result = $db->query($sql);
         if ($db->affected_rows > 0) {
           unset($_SESSION['errors']);
           $_SESSION['success'] = array( 1 => "All changes with the Project has been saved." );
         } else {
-          $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." );
+          $_SESSION['errors'] = array( 1 => "No changes are made. Please contact the Administration for further assistance if needed." . $db->error);
         }
       }
     }
