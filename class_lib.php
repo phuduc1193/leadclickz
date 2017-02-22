@@ -330,7 +330,7 @@
   class Project {
     public static function find_all (){
       global $db;
-      $sql = "SELECT * FROM projects;";
+      $sql = "SELECT * FROM projects ORDER BY progress ASC;";
       $result = $db->query($sql);
       return $result;
     }
@@ -401,6 +401,22 @@
       }
     }
   }
+?>
+
+<?php
+
+  ###############################################################
+  #####                 FUNCTION SECTION                    #####
+  ###############################################################
+function format_phone($phone)
+{
+    if(strlen($phone) == 7)
+        return preg_replace("/(\d{3})(\d{4})/", "$1-$2", $phone);
+    elseif(strlen($phone) == 10)
+        return preg_replace("/(\d{3})(\d{3})(\d{4})/", "($1) $2-$3", $phone);
+    else
+        return $phone;
+}
 ?>
 
 <?php

@@ -93,7 +93,7 @@ $userCount = $users->num_rows;
                 # Client Phone
                 if ($client['phone'] == '')
                   echo '<td>No Phone</td>';
-                else echo '<td><a href="tel: +1' . $client['phone'] . '">' . $client['phone'] . '</a></td>';
+                else echo '<td><a href="tel: +1' . $client['phone'] . '">' . format_phone($client['phone']) . '</a></td>';
                 # Client Address
                 $state = (State::find_by_id($client['state'])->fetch_array(MYSQLI_ASSOC));
                 $client['address'] = $client['street'] . ' ' . $client['city'] . ', ' . $state['name'] . ' ' . $client['zip_code'];

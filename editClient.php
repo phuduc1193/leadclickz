@@ -60,7 +60,7 @@
               <div class="form-group">
                 <label for="phone" class="col-sm-2 control-label">Phone</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $client['phone']; ?>">
+                  <input type="text" class="form-control" id="phone" name="phone" value="<?php echo format_phone($client['phone']); ?>">
                 </div>
               </div>
               <div class="form-group">
